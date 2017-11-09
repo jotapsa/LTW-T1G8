@@ -17,8 +17,7 @@ CREATE TABLE User(
   username    TEXT    UNIQUE,
   password    TEXT    NOT NULL,
   nickname    TEXT    NOT NULL,
-  email       TEXT    NOT NULL,
-  photo       BLOB
+  email       TEXT    NOT NULL
 );
 
 CREATE TABLE List(
@@ -56,4 +55,4 @@ CREATE TABLE Item (
     FOREIGN KEY (idList) REFERENCES List
 );
 
-INSERT INTO User VALUES(NULL,'john', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220','John','john@fe.up.pt',NULL);
+INSERT INTO User VALUES(NULL,'john', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220','John','john@fe.up.pt');

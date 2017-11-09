@@ -1,6 +1,6 @@
 <section id="register">
   <h1>Register</h1>
-  <form action="action_register.php" method="post">
+  <form action="action_register.php" method="post" enctype="multipart/form-data">
     <label>
       Username <input type="text" name="username">
     </label>

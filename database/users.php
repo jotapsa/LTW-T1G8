@@ -11,8 +11,8 @@
     return $stmt->fetch();
   }
 
-  function RegisterUser($dbh,$username,$password,$nickname,$email,$picture){
-    $stmt = $dbh->prepare('INSERT INTO User VALUES (?,?,?,?,?,?)');
-    $stmt->execute(array(NULL,$username,sha1($password),$nickname,$email,$picture));
+  function RegisterUser($dbh,$username,$password,$nickname,$email){
+    $stmt = $dbh->prepare('INSERT INTO User VALUES (?,?,?,?,?)');
+    $stmt->execute(array(NULL,$username,sha1($password),$nickname,$email));
   }
  ?>

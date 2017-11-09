@@ -23,6 +23,7 @@
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/comments.css" rel="stylesheet"> -->
     <link href="css/forms.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
   </head>
   <body>
     <header>
