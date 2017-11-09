@@ -16,12 +16,16 @@ CREATE TABLE User(
   idUser      INTEGER PRIMARY KEY AUTOINCREMENT,
   username    TEXT    UNIQUE,
   password    TEXT    NOT NULL,
+  birthday    INTEGER NOT NULL,
+  registerDate    INTEGER NOT NULL,
+  gender      INTEGER CHECK ((gender=0 OR gender=1) AND gender IS NOT NULL),
   nickname    TEXT    NOT NULL,
-  email       TEXT    NOT NULL
+  email       TEXT    NOT NULL,
+  image       TEXT
 );
 
 CREATE TABLE List(
-  idList    INTEGER   PRIMARY KEY,
+  idList    INTEGER   PRIMARY KEY AUTOINCREMENT,
   privacy   INTEGER   CHECK ((privacy = 0 OR privacy = 1) AND privacy IS NOT NULL),
   title     TEXT      ,
   colour    TEXT      ,
@@ -33,7 +37,7 @@ CREATE TABLE List(
 );
 
 CREATE TABLE Tag(
-  idTag     INTEGER   PRIMARY KEY,
+  idTag     INTEGER   PRIMARY KEY AUTOINCREMENT,
   name      TEXT      UNIQUE
 );
 
@@ -47,7 +51,7 @@ CREATE TABLE Category(
 
 
 CREATE TABLE Item (
-  idItem    INTEGER   PRIMARY KEY,
+  idItem    INTEGER   PRIMARY KEY AUTOINCREMENT,
   info      TEXT      NOT NULL,
   checked   INTEGER   CHECK ((checked = 0 OR checked = 1) AND checked IS NOT NULL),
   dateUntil DATE      ,
@@ -55,4 +59,4 @@ CREATE TABLE Item (
     FOREIGN KEY (idList) REFERENCES List
 );
 
-INSERT INTO User VALUES(NULL,'john', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220','John','john@fe.up.pt');
+INSERT INTO User VALUES(NULL,'john', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220',1508074451,1508074451,0,'John','john@fe.up.pt',NULL);

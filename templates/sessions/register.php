@@ -14,6 +14,22 @@
       E-mail <input type="email" name="email">
     </label>
     <label>
+      Gender
+      <label id="gender">
+          Male
+          <input type="radio" name="gender"
+          <?php if (isset($gender) && $gender=="male") echo "checked";?>
+          value="male" checked>
+          Female
+          <input type="radio" name="gender"
+          <?php if (isset($gender) && $gender=="female") echo "checked";?>
+          value="female">
+      </label>
+    </label>
+    <label>
+      Birthday <input type="date" name="birthday" value="2000-01-01">
+    </label>
+    <label>
       Picture <input type="file" name="picture" accept="image/*">
     </label>
     <input type="submit" value="Register">

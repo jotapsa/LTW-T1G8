@@ -15,8 +15,17 @@ form {
   background-color: #db6c0a;
 }
 
+#register input[type="radio"]{
+    vertical-align: baseline;
+    margin-top: 0em;
+}
+
 #register input[type="submit"]:hover {
   background-color: #db6c0a;
+}
+
+#gender{
+  display: flex;
 }
 
 form input[type="text"] {

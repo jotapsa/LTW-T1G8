@@ -39,6 +39,7 @@
               <div class="dropdown-content">
                 <a href="#">To-Do Lists</a>
                 <a href="#">Edit Profile</a>
+                <a href="#">Change Password</a>
               </div>
             </div>
             <a href="action_logout.php">Logout</a>
