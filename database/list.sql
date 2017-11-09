@@ -23,9 +23,12 @@ CREATE TABLE User(
 
 CREATE TABLE List(
   idList    INTEGER   PRIMARY KEY,
-  privacy   INTEGER   CHECK ((Privacy = 0 OR Privacy = 1) AND Privacy IS NOT NULL),
+  privacy   INTEGER   CHECK ((privacy = 0 OR privacy = 1) AND privacy IS NOT NULL),
   title     TEXT      ,
-  likes     INTEGER   CHECK (Likes>=0 AND Likes IS NOT NULL),
+  colour    TEXT      ,
+  likes     INTEGER   CHECK (likes>=0 AND likes IS NOT NULL),
+  clones    INTEGER   CHECK (clones>=0 AND clones IS NOT NULL),
+  checked   INTEGER   CHECK ((checked=0 OR checked=1) AND checked IS NOT NULL),
   idUser    INTEGER   NOT NULL,
     FOREIGN KEY (idUser) REFERENCES User
 );
@@ -46,6 +49,9 @@ CREATE TABLE Category(
 
 CREATE TABLE Item (
   idItem    INTEGER   PRIMARY KEY,
+  info      TEXT      ,
+  checked   INTEGER   CHECK ((checked = 0 OR checked = 1) AND checked IS NOT NULL),
+  dateUntil DATE      ,
     FOREIGN KEY (idList) REFERENCES List
 );
 
