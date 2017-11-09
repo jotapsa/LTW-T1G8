@@ -13,10 +13,10 @@ DROP TABLE IF EXISTS Category;
 DROP TABLE IF EXISTS Item;
 
 CREATE TABLE User(
-  idUser      INTEGER PRIMARY KEY,
+  idUser      INTEGER PRIMARY KEY AUTOINCREMENT,
   username    TEXT    UNIQUE,
-  password    TEXT,
-  nickname    TEXT,
+  password    TEXT    NOT NULL,
+  nickname    TEXT    NOT NULL,
   email       TEXT    NOT NULL,
   photo       BLOB,
 );
@@ -49,7 +49,7 @@ CREATE TABLE Category(
 
 CREATE TABLE Item (
   idItem    INTEGER   PRIMARY KEY,
-  info      TEXT      ,
+  info      TEXT      NOT NULL,
   checked   INTEGER   CHECK ((checked = 0 OR checked = 1) AND checked IS NOT NULL),
   dateUntil DATE      ,
     FOREIGN KEY (idList) REFERENCES List
