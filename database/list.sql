@@ -18,7 +18,7 @@ CREATE TABLE User(
   password    TEXT    NOT NULL,
   nickname    TEXT    NOT NULL,
   email       TEXT    NOT NULL,
-  photo       BLOB,
+  photo       BLOB
 );
 
 CREATE TABLE List(
@@ -52,6 +52,7 @@ CREATE TABLE Item (
   info      TEXT      NOT NULL,
   checked   INTEGER   CHECK ((checked = 0 OR checked = 1) AND checked IS NOT NULL),
   dateUntil DATE      ,
+  idList    INTEGER   NOT NULL,
     FOREIGN KEY (idList) REFERENCES List
 );
 

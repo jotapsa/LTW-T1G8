@@ -6,13 +6,13 @@
   }
 
   function NameofUser($dbh,$username){
-    $stmt = $dbh->prepare('SELECT User.name as name FROM User WHERE User.username = ?');
+    $stmt = $dbh->prepare('SELECT User.nickname as name FROM User WHERE User.username = ?');
     $stmt->execute(array($username));
     return $stmt->fetch();
   }
 
   function RegisterUser($dbh,$username,$password,$nickname,$email,$picture){
     $stmt = $dbh->prepare('INSERT INTO User VALUES (?,?,?,?,?,?)');
-    $stmt->execute(array(NULL,$username,$password,$nickname,$email,$picture));
+    $stmt->execute(array(NULL,$username,sha1($password),$nickname,$email,$picture));
   }
  ?>
