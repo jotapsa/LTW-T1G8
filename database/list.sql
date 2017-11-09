@@ -8,27 +8,43 @@ PRAGMA foreign_keys = ON;
 
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS List;
+DROP TABLE IF EXISTS Tag;
+DROP TABLE IF EXISTS Category;
 DROP TABLE IF EXISTS Item;
 
 CREATE TABLE User(
   idUser      INTEGER PRIMARY KEY,
-  Username    TEXT    UNIQUE,
-  Password    TEXT,
-  Nickname    TEXT,
-  Email       TEXT    NOT NULL,
-  Photo       BLOB,
+  username    TEXT    UNIQUE,
+  password    TEXT,
+  nickname    TEXT,
+  email       TEXT    NOT NULL,
+  photo       BLOB,
 );
 
-CREATE TABLE List (
+CREATE TABLE List(
   idList    INTEGER   PRIMARY KEY,
-  Privacy   INTEGER   CHECK ((Privacy = 0 OR Privacy = 1) AND Privacy IS NOT NULL),
-  Likes     INTEGER   CHECK (Likes>=0 AND Likes IS NOT NULL),
-  Tag   TEXT    ,
+  privacy   INTEGER   CHECK ((Privacy = 0 OR Privacy = 1) AND Privacy IS NOT NULL),
+  title     TEXT      ,
+  likes     INTEGER   CHECK (Likes>=0 AND Likes IS NOT NULL),
+  idUser    INTEGER   NOT NULL,
     FOREIGN KEY (idUser) REFERENCES User
+);
+
+CREATE TABLE Tag(
+  idTag     INTEGER   PRIMARY KEY,
+  name      TEXT      UNIQUE
+);
+
+CREATE TABLE Category(
+  idList    INTEGER   NOT NULL,
+  idTag     INTEGER   NOT NULL,
+  PRIMARY KEY(idList, idTag),
+    FOREIGN KEY (idList) REFERENCES List,
+    FOREIGN KEY (idTag)  REFERENCES Tag
 );
 
 
 CREATE TABLE Item (
-    idItem    INTEGER   PRIMARY KEY,
+  idItem    INTEGER   PRIMARY KEY,
     FOREIGN KEY (idList) REFERENCES List
 );
