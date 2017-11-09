@@ -11,7 +11,11 @@ form {
   margin: 2em 2em;
 }
 
-#login input:hover {
+#login input[type="submit"]:hover {
+  background-color: #db6c0a;
+}
+
+#register input[type="submit"]:hover {
   background-color: #db6c0a;
 }
 

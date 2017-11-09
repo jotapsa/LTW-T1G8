@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS Item;
 
 CREATE TABLE User(
   idUser      INTEGER PRIMARY KEY,
-  username    TEXT    UNIQUE,
+  username    TEXT UNIQUE,
   password    TEXT,
   nickname    TEXT,
   email       TEXT    NOT NULL,

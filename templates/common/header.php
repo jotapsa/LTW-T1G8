@@ -28,7 +28,7 @@
           else{ ?>
             <a href="search.php">Search</a>
             <a href="login.php">Login</a>
-            <a href="register.html">Register</a>
+            <a href="register.php">Register</a>
       <?php } ?>
       </div>
     </header>

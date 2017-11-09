@@ -1,1 +1,2 @@
-sqlite3 -init /database/list.sql /database/list.db
+cd database
+sqlite3 -init list.sql list.db

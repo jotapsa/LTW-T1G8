@@ -1,7 +1,7 @@
 <?php
   function userExists($dbh,$username,$password){
-    $stmt = $dbh->prepare('SELECT COUNT(User.username) as valid FROM User WHERE User.username = ? and User.password = ?');
-    $stmt->execute(array($username,hash('sha1', $password)));
+    $stmt = $dbh->prepare('SELECT * FROM User WHERE username = ? AND password = ?');
+    $stmt->execute(array($username,sha1($password)));
     return $stmt->fetch() !== false;
   }
 
@@ -9,5 +9,10 @@
     $stmt = $dbh->prepare('SELECT User.name as name FROM User WHERE User.username = ?');
     $stmt->execute(array($username));
     return $stmt->fetch();
+  }
+
+  function RegisterUser($dbh,$username,$password,$nickname,$email,$picture){
+    $stmt = $dbh->prepare('INSERT INTO User VALUES (?,?,?,?,?,?)');
+    $stmt->execute(array(NULL,$username,$password,$nickname,$email,$picture));
   }
  ?>
