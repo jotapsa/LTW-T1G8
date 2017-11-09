@@ -1,1 +1,1 @@
-sqlite3 -init news.sql news.db
+sqlite3 -init /database/list.sql /database/list.db
