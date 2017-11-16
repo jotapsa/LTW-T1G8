@@ -1,0 +1,103 @@
+form {
+  background-color: white;
+  color: black;
+  margin: 2em auto;
+  width: 20em;
+  padding: 1em;
+}
+
+#save,#add{
+  width: 40em;
+  margin: 2em 2em;
+}
+
+#login input[type="submit"]:hover {
+  background-color: #db6c0a;
+}
+
+#register input[type="radio"]{
+    vertical-align: baseline;
+    margin-top: 0em;
+}
+
+#register input[type="submit"]:hover {
+  background-color: #db6c0a;
+}
+
+#gender{
+  display: flex;
+}
+
+form input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+}
+
+form textarea {
+  display: block;
+  width: 100%;
+  height: 10em;
+  padding: 0.5em;
+}
+
+label {
+  padding: 1em;
+}
+
+label, input {
+  display: block;
+}
+
+input {
+  border: none;
+  background-color: white;
+  color: black;
+  border-bottom: 1px solid black;
+  margin-top: 1em;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+input[type=submit] {
+  width: auto;
+
+  background-color: black;
+  color: white;
+
+  border: none;
+  margin: 1em;
+  padding: 1em;
+  margin-left: auto;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 1px solid #046dd5;
+}
+
+#register h1, #login h1 {
+  text-align: center;
+}
+
+@media (max-width: 30em) {
+  #register, #login {
+    background-color: white;
+  }
+
+  #save,#add{
+    width:20em;
+    margin: 1em 0.5em;
+  }
+
+  form textarea {
+    height: 15em;
+  }
+}
+
+@media (max-width: 60em) {
+  #save,#add{
+    width:45em;
+    margin: 1em 1em;
+  }
+}

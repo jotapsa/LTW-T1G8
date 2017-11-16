@@ -1,0 +1,174 @@
+/* header */
+
+body > header {
+  background-color: #8c2d19;
+  color: white;
+
+  padding: 1em;
+}
+
+body > header h1, body > header h2{
+  margin: 0;
+}
+
+body > header a {
+  color: white;
+  text-decoration: none;
+}
+
+body > header #signup a:last-child {
+  border-right: none;
+}
+
+body > header #signup a {
+  padding: 0 1em;
+  border-right: 1px solid white;
+}
+
+body > header #signup a:hover {
+  text-decoration: underline;
+}
+
+body > header #signup {
+  text-align: right;
+}
+
+/* my profile */
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 90px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    display: block;
+    text-align: left;
+    border-left: 1em;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  text-decoration: underline;
+  background-color: black;
+  color: white;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* article */
+
+/*#news header {
+  max-width: 10em;
+  padding: 1em;
+  position: absolute;
+}
+
+#news header h1{
+  margin: 0;
+
+  text-shadow: .2em .2em .2em black;
+}
+
+#news header a{
+  color: white;
+  text-decoration: none;
+}
+
+#news img {
+  width: 100%;
+}
+
+#news > article {
+  background-color: white;
+
+  margin: 1em 1em 1em 0;
+}
+
+#news > article > p{
+  padding: 0 1em;
+}
+
+#news > article > p:first-of-type:first-letter{
+  font-size: 2em;
+}
+
+#news > article > a{
+  padding: 0 1em;
+  float: right;
+  color: black;
+}
+
+#news footer {
+  color: white;
+  background-color: #f4655f;
+
+  padding: 1em;
+}
+
+#news footer a{
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid white;
+  padding-bottom: 2px;
+}
+
+#news footer .tags {
+  margin-right: 1em;
+}
+
+#news footer .comments {
+  margin-left: 1em;
+}
+
+#news footer .comments:after {
+  content: ' comments';
+}
+
+#news footer .author:before{
+  content: "By ";
+}*/
+
+/* footer */
+
+body > footer {
+  background-color: #2a2f33;
+  color: white;
+
+  padding: 1em;
+}
+
+body > footer p {
+  margin: 0;
+}
+
+/* fonts */
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+p {
+  font-family: "Georgia", serif;
+  line-height: 1.4em;
+}
+
+header h2 {
+  font-size: 1em;
+}
+
+header a {
+  font-size: 0.8em;
+}
