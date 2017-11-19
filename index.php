@@ -2,12 +2,14 @@
   session_start();
   include_once('database/connection.php');
   include_once('database/users.php');
+  include_once('database/lists.php');
   //$articles = getAllNews($dbh);
 
   include('templates/common/header.php');  // prints the initial part of the HTML document
   if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
     //user layout
-    //include('templates/lists/lists_user.php');
+    $user = getUserbySession($dbh,$_SESSION['username']);
+    include('templates/lists/lists_user.php');
   }
   else{
     //guest layout

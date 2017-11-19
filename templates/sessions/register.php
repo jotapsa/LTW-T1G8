@@ -1,18 +1,20 @@
 <section id="register">
   <h1>Register</h1>
-  <form action="action_register.php" method="post" enctype="multipart/form-data">
+  <form action="action_register.php" method="post" enctype="multipart/form-data" id="registerForm">
+    <label for="username">
+      Username <input id="username" type="text" name="username" required>
+    </label>
+    <div id="username_error" class="val_error"> errado </div>
     <label>
-      Username <input type="text" name="username">
+      Password <input type="password" name="password" required>
     </label>
     <label>
-      Password <input type="password" name="password">
+      Nickname <input type="nickname" name="nickname" required>
     </label>
     <label>
-      Nickname <input type="nickname" name="nickname">
+      E-mail <input type="email" name="email" required>
     </label>
-    <label>
-      E-mail <input type="email" name="email">
-    </label>
+    <div id="email_error" class="val_error"> errado </div>
     <label>
       Gender
       <label id="gender">
@@ -27,11 +29,12 @@
       </label>
     </label>
     <label>
-      Birthday <input type="date" name="birthday" value="2000-01-01">
+      Birthday <input type="date" name="birthday" value="2000-01-01" required>
     </label>
     <label>
       Picture <input type="file" name="picture" accept="image/*">
     </label>
-    <input type="submit" value="Register">
+    <input type="submit" value="Register" onclick="check()">
   </form>
+  <script src="scripts/register.js"></script>
 </section>

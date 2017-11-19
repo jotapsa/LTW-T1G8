@@ -6,6 +6,10 @@ form {
   padding: 1em;
 }
 
+.val_error{
+  padding: 0em 1em;
+}
+
 #save,#add{
   width: 40em;
   margin: 2em 2em;

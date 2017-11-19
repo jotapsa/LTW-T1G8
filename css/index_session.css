@@ -1,0 +1,25 @@
+#main{
+  display:grid;
+  grid-template-columns: [user] 1fr [user_lists] 3fr;
+}
+
+#user{
+  background-color: #edeff0;
+  text-align: center;
+  display:block;
+  margin-right:1em;
+}
+
+#user > #headshot{
+  /*padding-top: 1em;
+  padding-left: 2.5em;*/
+  padding: 1.5em 2.5em;
+}
+
+#user > #name_user >h2{
+  padding-right: 2em;
+}
+
+#user_lists{
+  background-color: #ff0000;
+}

@@ -1,3 +1,11 @@
+<?php
+if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
+  if(!usernameExists($dbh,$_SESSION['username'])){
+    header('Location: action_logout.php');
+    exit();
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
@@ -19,6 +27,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/index_session.css" rel="stylesheet">
     <!-- <link href="css/layout.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/comments.css" rel="stylesheet"> -->
