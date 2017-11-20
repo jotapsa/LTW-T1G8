@@ -13,7 +13,7 @@
   }
   else{
     //guest layout
-    //include('templates/lists/lists_guest.php');
+    include('templates/lists/lists_guest.php');
   }
   //include('templates/news/list_news.php'); // prints the list of news in HTML
   include('templates/common/footer.php');  // prints the initial part of the HTML document

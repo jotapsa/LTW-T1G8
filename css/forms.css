@@ -84,6 +84,10 @@ input:focus {
   text-align: center;
 }
 
+/* Search */
+
+/* Media */
+
 @media (max-width: 30em) {
   #register, #login {
     background-color: white;
