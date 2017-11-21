@@ -22,4 +22,10 @@
     $stmt->execute(array());
     return $stmt->fetchAll();
   }
+
+  function PublicTags($dbh){
+    $stmt = $dbh->prepare('SELECT DISTINCT Tag.name FROM List INNER JOIN Category ON ((List.privacy = 0) AND (List.idList = Category.idList)) INNER JOIN Tag ON (Tag.idTag = Category.idTag)');
+    $stmt->execute(array());
+    return $stmt->fetchAll();
+  }
  ?>

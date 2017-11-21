@@ -55,7 +55,8 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
           <?php
           }
           else{ ?>
-            <a href="search.php">Search</a>
+            <input type="text" id="search" list="datalist" placeholder="search for tag..." onkeypress="return runScript(event)" onkeyup="showHints(this.value)">
+            <datalist id="datalist"></datalist>
             <a href="login.php">Login</a>
             <a href="register.php">Register</a>
       <?php } ?>
