@@ -38,6 +38,12 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
     <header>
       <h1><a href="index.php">WIP</a></h1>
       <div id="signup">
+        <select id="searchType" onchange="changeType(this.value)">
+          <option value="user">User</option>
+          <option value="tag">Tag</option>
+        </select>
+        <input type="text" id="search" list="datalist" placeholder="search for user..." onkeypress="Search(event)" onkeyup="showHints(this.value)">
+        <datalist id="datalist"></datalist>
         <?php
           include_once('database/users.php');
           if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
@@ -55,8 +61,6 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
           <?php
           }
           else{ ?>
-            <input type="text" id="search" list="datalist" placeholder="search for tag..." onkeypress="return runScript(event)" onkeyup="showHints(this.value)">
-            <datalist id="datalist"></datalist>
             <a href="login.php">Login</a>
             <a href="register.php">Register</a>
       <?php } ?>

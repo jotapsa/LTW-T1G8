@@ -27,4 +27,10 @@
     $stmt->execute(array($username));
     return $stmt->fetch();
   }
+
+  function Users($dbh){
+    $stmt = $dbh->prepare('SELECT User.username FROM User');
+    $stmt->execute(array());
+    return $stmt->fetchAll();
+  }
  ?>

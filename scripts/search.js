@@ -1,9 +1,22 @@
 
+function changeType(str){
+  var inputSearch = document.getElementById('search');
+  if(str == 'user'){
+    inputSearch.placeholder = 'search for user...';
+  }
+  else {
+    inputSearch.placeholder = 'search for tag...';
+  }
+}
 
-function runScript(e) {
+
+function Search(e) {
     if (e.keyCode == 13) {
-        var tb = document.getElementById("search").value;
-        var page = 'search.php?q=' + tb;
+        var input = document.getElementById("search").value;
+        if(input == '')
+          return false;
+        var type = document.getElementById('searchType').value;
+        var page = 'search.php?' + type + '=' + input;
         window.location = page;
         return false;
     }
@@ -13,6 +26,7 @@ function showHints(str) {
 
     var dataList = document.getElementById('datalist');
     document.getElementById("datalist").innerHTML = "";
+    var typeSearch = document.getElementById('searchType').value;
 
     if (str.length == 0) {
         return;
@@ -29,7 +43,12 @@ function showHints(str) {
             }
         };
 
-        xmlhttp.open("GET", "search_tags.php?tag=" + str, true);
+        if(typeSearch == 'user'){
+          xmlhttp.open("GET", "search_users.php?user=" + str, true);
+        }
+        else {
+          xmlhttp.open("GET", "search_tags.php?tag=" + str, true);
+        }
         xmlhttp.send();
     }
 }
