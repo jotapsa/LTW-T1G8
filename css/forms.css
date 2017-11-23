@@ -6,6 +6,10 @@ form {
   padding: 1em;
 }
 
+.val_error{
+  padding: 0em 1em;
+}
+
 #save,#add{
   width: 40em;
   margin: 2em 2em;
@@ -79,6 +83,15 @@ input:focus {
 #register h1, #login h1 {
   text-align: center;
 }
+
+/* Search */
+
+#search{
+  width: 10em;
+  display:inline-block;
+}
+
+/* Media */
 
 @media (max-width: 30em) {
   #register, #login {

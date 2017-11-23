@@ -16,7 +16,7 @@
   }
   else{
     //$message = "Registration Sucessful!";
-    if(isset($_FILES['picture'])){
+    if(isset($_FILES['picture']) && $_FILES['picture']['size'] > 0){
       $image = $_FILES['picture']['name'];
       $ext = pathinfo($image, PATHINFO_EXTENSION);
       $path = 'images/'.$_POST['username'].'.'.$ext;

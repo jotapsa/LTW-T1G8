@@ -1,0 +1,87 @@
+#main{
+  display:grid;
+  grid-template-columns: [user] auto [user_lists] auto [nav] auto;
+  background-color: #89CFF0;
+}
+
+#to-do-lists{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#user{
+  background-color: #ffffff;
+  text-align: center;
+  display:block;
+  margin: 1em;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+#user > #headshot{
+  /*padding-top: 1em;
+  padding-left: 2.5em;*/
+  padding: 1.5em 2.5em;
+}
+
+#user > #name_user >h2{
+  padding-right: 2em;
+}
+
+#user_lists{
+background-color: #edeff0;
+margin: 1em;
+border: 2px solid black;
+border-radius: 5px;
+}
+
+#to-do-lists > article{
+  background-color: #ff0000;
+  margin: 1em;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+
+#to-do-lists > article > header > h1{
+  text-align: center;
+}
+
+#to-do-lists > article > header > h1 > a{
+  margin: 0em;
+  text-decoration: none;
+  padding: 1em;
+}
+
+#nav{
+  background-color: #000000;
+}
+
+/* navigation */
+
+#items ul {
+  margin: 0;
+  padding: 0;
+}
+
+#items li {
+  background-color: white;
+  text-align: center;
+
+  list-style-type: none;
+
+  padding: 1em 0;
+}
+
+#items li a{
+  color: black;
+  text-decoration: none;
+}
+
+#items li:hover {
+  background-color: green;
+}
+
+#items li:hover a{
+  color: white;
+}
