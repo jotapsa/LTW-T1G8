@@ -1,5 +1,9 @@
 /* header */
 
+body{
+    margin: 0;
+}
+
 body > header {
   background-color: #8c2d19;
   color: white;
@@ -9,6 +13,7 @@ body > header {
 
 body > header h1, body > header h2{
   margin: 0;
+  font-size: 50px;
 }
 
 body > header a {

@@ -5,16 +5,19 @@
   ?>
   <article>
       <header>
+        <!-- IMAGE? -->
         <h1><a href="edit_list.php?id=<?=$todolist['id']?>"><?=$todolist['title']?></a></h1>
       </header>
       <!-- <img src="http://lorempixel.com/600/300/business/" alt=""> -->
       <!-- Items -->
       <section id="items">
-        <ul>
-          <?php foreach ($items as $item) { ?>
-          <li><?=$item['info']?></li>
-          <?php } ?>
-        </ul>
+          <!-- <ul> -->
+        <table>
+            <?php foreach ($items as $item) { ?>
+                <!--<li> --> <tr><td><?=$item['info']?></td></tr><!--</li>-->
+            <?php } ?>
+        </table>
+          <!-- </ul> -->
       </section>
       <footer>
         <?php foreach($tags as $tag){ ?>
