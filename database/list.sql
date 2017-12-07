@@ -34,14 +34,20 @@ CREATE TABLE List(
   checked   INTEGER   CHECK ((checked=0 OR checked=1) AND checked IS NOT NULL),
   image       TEXT,
   editedDate    INTEGER NOT NULL,
-  idUser    INTEGER   NOT NULL,
-    FOREIGN KEY (idUser) REFERENCES User
 );
 
 CREATE TABLE Tag(
   idTag     INTEGER   PRIMARY KEY AUTOINCREMENT,
   name      TEXT      UNIQUE
 );
+
+CREATE TABLE Belongs(
+  idList INTEGER NOT NULL,
+  idUser INTEGER NOT NULL,
+  PRIMARY KEY (idList, idUser),
+    FOREIGN KEY (idList) REFERENCES List,
+    FOREIGN KEY (idUser) REFERENCES User
+)
 
 CREATE TABLE Category(
   idList    INTEGER   NOT NULL,
@@ -63,6 +69,11 @@ CREATE TABLE Item (
 -- Users
 INSERT INTO User VALUES(NULL,'john', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220',1508074451,1508074451,0,'John','john@fe.up.pt',NULL);
 INSERT INTO User VALUES(NULL,'barbosa', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220',1508074451,1508074451,0,'Barbosa','barbosa@fe.up.pt',NULL);
+<<<<<<< HEAD
+INSERT INTO User VALUES(NULL,'jotapsa', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220',1508074451,1508074451,0,'João Sá','jotapsa@fe.up.pt',NULL);
+INSERT INTO User VALUES(NULL,'arthur', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220',1508074451,1508074451,0,'Arthur Matta','arthur@fe.up.pt',NULL);
+=======
+>>>>>>> updates
 
 -- Lists
 INSERT INTO List VALUES(NULL,0,'Projetos','ff0000',0,0,0,NULL,1511118000,1);

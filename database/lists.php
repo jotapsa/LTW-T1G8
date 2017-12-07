@@ -36,9 +36,14 @@
   }
 
   function SearchbyTagSession($dbh,$username,$tag){
+<<<<<<< HEAD
+    $stmt = $dbh->prepare('SELECT List.* FROM List,
+      (SELECT List.idList as id
+=======
     //$stmt = $dbh->prepare('SELECT List.* FROM List INNER JOIN Category ON (List.idList = Category.idList) INNER JOIN Tag ON ((Tag.idTag = Category.idTag) AND (Tag.name = ?)) INNER JOIN User ON ((User.username = ?) AND (User.idUser = List.idUser))');
     $stmt = $dbh->prepare('SELECT notUser.Listas, sessionUser.Listas FROM
           (SELECT List.* AS Listas
+>>>>>>> updates
             FROM List INNER JOIN Category
             ON ((List.privacy = 0) AND (List.idList = Category.idList))
             INNER JOIN Tag
@@ -46,16 +51,31 @@
             INNER JOIN User
             ON ((User.username != ?) AND (User.idUser = List.idUser))
             GROUP BY List.idList) notUser,
+<<<<<<< HEAD
+          (SELECT List.idList as id
+=======
           (SELECT List.* AS Listas
+>>>>>>> updates
             FROM List INNER JOIN Category
             ON (List.idList = Category.idList)
             INNER JOIN Tag
             ON ((Tag.idTag = Category.idTag) AND (Tag.name = ?))
             INNER JOIN User
             ON ((User.username = ?) AND (User.idUser = List.idUser))
+<<<<<<< HEAD
+            GROUP BY List.idList) sessionUser
+      WHERE (List.idList = sessionUser.id OR List.idList = notUser.id)
+      GROUP BY List.idList
+      ORDER BY List.idList ASC;
+');
+    $stmt->execute(array($tag,$username,$tag,$username));
+    print_r($stmt->fetchAll());
+    die();
+=======
             GROUP BY List.idList) sessionUser');
     $stmt->execute(array($tag,$username,$tag,$username));
     return $stmt->fetchAll();
+>>>>>>> updates
   }
 
   function SearchByUser($dbh,$username){
