@@ -34,10 +34,10 @@ function showHints(str) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                var tags = JSON.parse(this.responseText);
-                for(let i=0;i < tags.length; i++){
+                var options = JSON.parse(this.responseText);
+                for(let i=0;i < options.length; i++){
                   var option = document.createElement('option');
-                  option.value = tags[i];
+                  option.value = options[i];
                   dataList.appendChild(option);
                 }
             }

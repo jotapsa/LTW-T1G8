@@ -5,14 +5,14 @@
   ?>
   <article>
       <header>
-        <h1><a href="edit_list.php?id=<?=$todolist['id']?>"><?=$todolist['title']?></a></h1>
+        <h1><a href=""><?=$todolist['title']?></a></h1>
       </header>
       <!-- <img src="http://lorempixel.com/600/300/business/" alt=""> -->
       <!-- Items -->
       <section id="items">
         <ul>
           <?php foreach ($items as $item) { ?>
-          <li><?=$item['info']?></li>
+          <li class="item" id="item<?=$item['idItem']?>"><?=$item['info']?></li>
           <?php } ?>
         </ul>
       </section>

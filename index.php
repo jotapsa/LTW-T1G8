@@ -10,6 +10,8 @@
     //user layout
     $user = getUserbySession($dbh,$_SESSION['username']);
     include('templates/lists/lists_user.php');
+    ?><script src="scripts/item.js" defer></script>
+    <?php
   }
   else{
     //guest layout
