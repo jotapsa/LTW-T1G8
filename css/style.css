@@ -1,14 +1,27 @@
 /* header */
+/*
+body{
+  margin: 0;
+  display: grid;
+  grid-template-rows: [header] auto [header_end content] auto [content_end footer] auto;
+}
+*/
 
 body{
+    display: flex;
+    flex-flow: column nowrap;
+
     margin: 0;
 }
 
 body > header {
-  background-color: #8c2d19;
-  color: white;
+    display: flex;
+    flex-flow: row wrap;
 
-  padding: 1em;
+    background-color: #8c2d19;
+    color: white;
+
+    padding: 1em;
 }
 
 body > header h1, body > header h2{
@@ -35,7 +48,15 @@ body > header #signup a:hover {
 }
 
 body > header #signup {
-  text-align: right;
+    flex: 1 100%;
+    text-align: right;
+}
+
+#searchType{
+    color: black;
+    background-color: white;
+    border: none;
+    font-size: 14px;
 }
 
 /* my profile */
@@ -149,6 +170,10 @@ body > header #signup {
 /* footer */
 
 body > footer {
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 1 100%;
+
   background-color: #2a2f33;
   color: white;
 
