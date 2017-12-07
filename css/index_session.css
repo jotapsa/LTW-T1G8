@@ -1,16 +1,19 @@
+/*
 #main{
   display:grid;
-  grid-template-columns: [user] auto [user_lists] auto [nav] auto;
-  background-color: #89CFF0;
-}
-/*
-#to-do-lists{
-  display: flex;
-  flex-wrap: wrap;
+  grid-template-columns: [user] auto [user_lists] auto;
+  background-image: linear-gradient(to top, white, #89CFF0);
 }
 */
+
+#main {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
 #user{
-    grid-area: user;
+    flex: 1 100%;
+
     background-color: #ffffff;
     text-align: center;
     display:block;
@@ -21,17 +24,16 @@
 }
 
 #user > #headshot{
-  /*padding-top: 1em;
-  padding-left: 2.5em;*/
   padding: 1.5em 2.5em;
 }
 
-#user > #name_user >h2{
+#user > #name_user > h2{
   padding-right: 2em;
 }
 
 #user_lists{
-    grid-area: user_lists;
+    flex: 1 100%;
+
     background-color: #edeff0;
     margin: 1em;
     border: 2px solid black;
@@ -39,20 +41,32 @@
 }
 
 #to-do-lists{
+    flex: 1 100%;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+
+    height: 750px;
+
+    background-image: linear-gradient(to top, white, #89CFF0);
+}
+
+#to-do-lists > article{
+    margin: 1em;
+    border: 2px solid black;
+    border-radius: 5px;
+
     display: grid;
     grid-template-rows: /*[image] auto*/ [title] auto [items] auto [footer] auto;
 }
 
-#to-do-lists > article{
-    /*background-color: #ff0000;*/
-    margin: 1em;
-    border: 2px solid black;
-    border-radius: 5px;
-}
-
 #to-do-lists header{
+    grid-area: title;
     background-color: #f00;
-    padding: 0.5em;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 /*
@@ -68,7 +82,6 @@
     font-size: 40px;
     padding: 0.5em;
     margin: 0;
-    grid-area: title;
 }
 
 #to-do-lists > article > header > h1 > a{
@@ -86,6 +99,9 @@
 #items table{
     width: 100%;
     height: 100%;
+}
+
+#items{
     grid-area: items;
 }
 
@@ -111,15 +127,22 @@
 
 #to-do-lists footer{
     background-color: #f00;
-    height: 2.5em;
+    height: auto;
     padding: 0.5em;
     grid-area: footer;
+
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .date{
     float: right;
     text-align: right;
     color: white;
+}
+
+.date:before{
+    content: "Last Modified in ";
 }
 
 .tags:first-child:before{
