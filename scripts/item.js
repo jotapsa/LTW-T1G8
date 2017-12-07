@@ -10,5 +10,5 @@ addEventListenerList(items);
 function updateItem(event){
   var id = this.id;
   id = id.substr(4);
-  
+
 }
