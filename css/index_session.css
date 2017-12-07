@@ -1,56 +1,93 @@
+/*
 #main{
   display:grid;
-  grid-template-columns: [user] auto [user_lists] auto [nav] auto;
-  background-color: #89CFF0;
+  grid-template-columns: [user] auto [user_lists] auto;
+  background-image: linear-gradient(to top, white, #89CFF0);
 }
+*/
 
-#to-do-lists{
-  display: flex;
-  flex-wrap: wrap;
+#main {
+    display: flex;
+    flex-flow: row nowrap;
 }
 
 #user{
-  background-color: #ffffff;
-  text-align: center;
-  display:block;
-  margin: 1em;
-  border: 2px solid black;
-  border-radius: 5px;
+    flex: 1 100%;
+
+    background-color: #ffffff;
+    text-align: center;
+    display:block;
+    margin: 1em;
+    border: 2px solid black;
+    border-radius: 5px;
+    max-width: 270px;
 }
 
 #user > #headshot{
-  /*padding-top: 1em;
-  padding-left: 2.5em;*/
   padding: 1.5em 2.5em;
 }
 
-#user > #name_user >h2{
+#user > #name_user > h2{
   padding-right: 2em;
 }
 
 #user_lists{
-background-color: #edeff0;
-margin: 1em;
-border: 2px solid black;
-border-radius: 5px;
+    flex: 1 100%;
+
+    background-color: #edeff0;
+    margin: 1em;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+#to-do-lists{
+    flex: 1 100%;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+
+    height: 750px;
+
+    background-image: linear-gradient(to top, white, #89CFF0);
 }
 
 #to-do-lists > article{
-  background-color: #ff0000;
-  margin: 1em;
-  border: 2px solid black;
-  border-radius: 5px;
+    margin: 1em;
+    border: 2px solid black;
+    border-radius: 5px;
+
+    display: grid;
+    grid-template-rows: /*[image] auto*/ [title] auto [items] auto [footer] auto;
 }
 
+#to-do-lists header{
+    grid-area: title;
+    background-color: #f00;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/*
+#to-do-lists img{
+    grid-area: image;
+    border-radius: 8px;
+    width: 100%;
+}
+*/
 
 #to-do-lists > article > header > h1{
-  text-align: center;
+    text-align: left;
+    font-size: 40px;
+    padding: 0.5em;
+    margin: 0;
 }
 
 #to-do-lists > article > header > h1 > a{
-  margin: 0em;
+  /*margin: 0em;*/
+  color: white;
   text-decoration: none;
-  padding: 1em;
 }
 
 #nav{
@@ -59,16 +96,74 @@ border-radius: 5px;
 
 /* navigation */
 
+#items table{
+    width: 100%;
+    height: 100%;
+}
+
+#items{
+    grid-area: items;
+}
+
+#items tr:nth-child(even){
+    background-color: #ccc;
+}
+
+#items tr:nth-child(odd){
+    background-color: white;
+}
+
+#items td{
+    text-align: center;
+    padding: 15px;
+}
+
+#items td:hover{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+/* Footer */
+
+#to-do-lists footer{
+    background-color: #f00;
+    height: auto;
+    padding: 0.5em;
+    grid-area: footer;
+
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.date{
+    float: right;
+    text-align: right;
+    color: white;
+}
+
+.date:before{
+    content: "Last Modified in ";
+}
+
+.tags:first-child:before{
+    content: "tags: ";
+    color: white;
+}
+
+.tags a{
+    color: #5f5;
+}
+
+/*
 #items ul {
   margin: 0;
   padding: 0;
+  list-style-type: none;
 }
 
 #items li {
   background-color: white;
   text-align: center;
-
-  list-style-type: none;
 
   padding: 1em 0;
 }
@@ -85,3 +180,4 @@ border-radius: 5px;
 #items li:hover a{
   color: white;
 }
+*/

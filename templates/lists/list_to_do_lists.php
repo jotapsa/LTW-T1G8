@@ -5,16 +5,31 @@
   ?>
   <article>
       <header>
+<<<<<<< HEAD
         <h1><a href=""><?=$todolist['title']?></a></h1>
+=======
+        <!-- IMAGE? -->
+        <h1><a href="edit_list.php?id=<?=$todolist['id']?>"><?=$todolist['title']?></a></h1>
+>>>>>>> updates
       </header>
       <!-- <img src="http://lorempixel.com/600/300/business/" alt=""> -->
       <!-- Items -->
       <section id="items">
+<<<<<<< HEAD
         <ul>
           <?php foreach ($items as $item) { ?>
           <li class="item" id="item<?=$item['idItem']?>"><?=$item['info']?></li>
           <?php } ?>
         </ul>
+=======
+          <!-- <ul> -->
+        <table>
+            <?php foreach ($items as $item) { ?>
+                <!--<li> --> <tr><td><?=$item['info']?></td></tr><!--</li>-->
+            <?php } ?>
+        </table>
+          <!-- </ul> -->
+>>>>>>> updates
       </section>
       <footer>
         <?php foreach($tags as $tag){ ?>
