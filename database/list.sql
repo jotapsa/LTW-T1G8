@@ -34,14 +34,20 @@ CREATE TABLE List(
   checked   INTEGER   CHECK ((checked=0 OR checked=1) AND checked IS NOT NULL),
   image       TEXT,
   editedDate    INTEGER NOT NULL,
-  idUser    INTEGER   NOT NULL,
-    FOREIGN KEY (idUser) REFERENCES User
 );
 
 CREATE TABLE Tag(
   idTag     INTEGER   PRIMARY KEY AUTOINCREMENT,
   name      TEXT      UNIQUE
 );
+
+CREATE TABLE Belongs(
+  idList INTEGER NOT NULL,
+  idUser INTEGER NOT NULL,
+  PRIMARY KEY (idList, idUser),
+    FOREIGN KEY (idList) REFERENCES List,
+    FOREIGN KEY (idUser) REFERENCES User
+)
 
 CREATE TABLE Category(
   idList    INTEGER   NOT NULL,
