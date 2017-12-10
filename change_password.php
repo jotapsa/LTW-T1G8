@@ -1,8 +1,9 @@
 <?php
 session_start();
 include_once('database/connection.php');
+include_once('database/users.php');
 
-if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
+if(!isset($_SESSION['username']) && $_SESSION['username'] != ''){
   header('Location: index.php');
   exit();
 }

@@ -4,7 +4,6 @@
     <label for="username">
       Username <input id="username" type="text" name="username" required>
     </label>
-    <div id="username_error" class="val_error"> errado </div>
     <label>
       Password <input type="password" name="password" required>
     </label>
@@ -14,7 +13,6 @@
     <label>
       E-mail <input type="email" name="email" required>
     </label>
-    <div id="email_error" class="val_error"> errado </div>
     <label>
       Gender
       <label id="gender">

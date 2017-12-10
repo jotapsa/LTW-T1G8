@@ -28,11 +28,10 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/index_session.css" rel="stylesheet">
-    <!-- <link href="css/layout.css" rel="stylesheet">
-    <link href="css/responsive.css" rel="stylesheet">
-    <link href="css/comments.css" rel="stylesheet"> -->
     <link href="css/forms.css" rel="stylesheet">
     <link href="css/profile.css" rel="stylesheet">
+    <script src="scripts/search.js" defer></script>
+    <script src="scripts/item.js" defer></script>
   </head>
   <body>
     <header>
@@ -52,8 +51,8 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
             <div class="dropdown">
               <a class="dropbtn">My Profile</a>
               <div class="dropdown-content">
-                <a href="change_password.php">Edit Profile</a>
-                <a href="#">Change Password</a>
+                <a href="#">Edit Profile</a>
+                <a href="change_password.php">Change Password</a>
               </div>
             </div>
             <a href="action_logout.php">Logout</a>

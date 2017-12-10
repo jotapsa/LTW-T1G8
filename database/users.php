@@ -1,7 +1,7 @@
 <?php
   function userExists($dbh,$username,$password){
     $stmt = $dbh->prepare('SELECT * FROM User WHERE username = ? AND password = ?');
-    $stmt->execute(array($username,sha1($password)));
+    $stmt->execute(array($username,sha256($password)));
     return $stmt->fetch() !== false;
   }
 
@@ -32,5 +32,9 @@
     $stmt = $dbh->prepare('SELECT User.username FROM User');
     $stmt->execute(array());
     return $stmt->fetchAll();
+  }
+
+  function CheckUserPassword($dbh,$username,$password){
+
   }
  ?>

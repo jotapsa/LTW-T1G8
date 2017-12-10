@@ -1,4 +1,4 @@
-#login{
+#login,#register,#change_pwd{
     background-image: linear-gradient(to top, white, #89CFF0);
 
     display: flex;
@@ -90,7 +90,7 @@ input:focus {
   border-bottom: 1px solid #046dd5;
 }
 
-#register h1, #login h1 {
+#register h1, #login h1 ,#change_pwd{
   text-align: center;
 }
 
