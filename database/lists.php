@@ -1,6 +1,6 @@
 <?php
   function userTDLists($dbh,$username){
-    $stmt = $dbh->prepare('SELECT List.* FROM User,List WHERE User.username = ? and User.idUser = List.idUser ORDER BY List.editedDate DESC');
+    $stmt = $dbh->prepare('SELECT List.* FROM Belongs INNER JOIN User ON (User.username =? and User.idUser = Belongs.idUser) INNER JOIN List ON (Belongs.idList = List.idList) ORDER BY List.editedDate DESC');
     $stmt->execute(array($username));
     return $stmt->fetchAll();
   }
@@ -40,8 +40,35 @@
   }
 
   function SearchByUser($dbh,$username){
-    $stmt = $dbh->prepare('SELECT List.* FROM List INNER JOIN User ON ((List.idUser = User.idUser) AND (User.username = ?) AND (List.privacy = 0))');
+    $stmt = $dbh->prepare('SELECT List.* FROM Belongs INNER JOIN User ON (Belongs.idUser = User.idUser AND User.username = ?) INNER JOIN List ON (Belongs.idList = List.idList AND List.privacy = 0)');
     $stmt->execute(array($username));
     return $stmt->fetchAll();
+  }
+
+  function getItem($dbh,$idItem){
+    $stmt = $dbh->prepare('SELECT Item.* FROM Item WHERE Item.idItem = ?');
+    $stmt->execute(array($idItem));
+    return $stmt->fetch();
+  }
+
+  function UpdateItem($dbh,$idItem,$checked){
+    $stmt = $dbh->prepare('UPDATE Item SET checked = ? WHERE Item.idItem = ?');
+    $stmt->execute(array($checked,$idItem));
+  }
+
+  function getListbyItem($dbh,$idItem){
+    $stmt = $dbh->prepare('SELECT List.* FROM List INNER JOIN Item ON (Item.idList = List.idList and Item.idItem = ?)');
+    $stmt->execute(array($idItem));
+    return $stmt->fetch();
+  }
+
+  function UpdateList($dbh,$idList){
+
+  }
+
+  function ListBelongsUser($dbh,$username,$idList){
+    $stmt = $dbh->prepare('SELECT * FROM Belongs INNER JOIN User ON (Belongs.idUser = User.idUser AND User.username = ?) INNER JOIN List ON (Belongs.idList = List.idList AND List.idList = ?)');
+    $stmt->execute(array($username,$idList));
+    return $stmt->fetch() !== false;
   }
  ?>

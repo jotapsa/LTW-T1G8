@@ -64,9 +64,16 @@
 
 #to-do-lists header{
     grid-area: title;
-    background-color: #f00;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+
+.list-unchecked{
+  background-color: blue;
+}
+
+.list-checked{
+  background-color: green;
 }
 
 /*
@@ -78,7 +85,7 @@
 */
 
 #to-do-lists > article > header > h1{
-    text-align: left;
+    text-align: center;
     font-size: 40px;
     padding: 0.5em;
     margin: 0;
@@ -113,7 +120,7 @@
     background-color: white;
 }
 
-#items td{
+#items td {
     text-align: center;
     padding: 15px;
 }
@@ -139,10 +146,11 @@
     float: right;
     text-align: right;
     color: white;
+    margin-left: 2em;
 }
 
 .date:before{
-    content: "Last Modified in ";
+    content: "Modified in ";
 }
 
 .tags:first-child:before{
@@ -152,6 +160,55 @@
 
 .tags a{
     color: #5f5;
+}
+
+.item-check{
+  background-color: green;
+  cursor:pointer;
+}
+
+.item-uncheck{
+  cursor: pointer;
+}
+
+.addItem{
+  background-color: #4CAF50;
+    border: none;
+    color: white;
+    /*padding: 15px 32px;*/
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.deleteItem{
+  background-color: red;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.deleteItem:hover{
+
+}
+
+.addItemConfirm{
+  display: none;
+  background-color: #4CAF50;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.inputItem{
+  padding: 0em;
+}
+
+.inputItem > input{
+  padding: 0px;
+  border-radius: 12px;
 }
 
 /*

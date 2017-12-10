@@ -23,7 +23,6 @@ function Search(e) {
 }
 
 function showHints(str) {
-
     var dataList = document.getElementById('datalist');
     document.getElementById("datalist").innerHTML = "";
     var typeSearch = document.getElementById('searchType').value;
