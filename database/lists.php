@@ -36,7 +36,32 @@
   }
 
   function SearchbyTagSession($dbh,$username,$tag){
-
+      $stmt = $dbh->prepare('SELECT List.* FROM List,
+        (SELECT List.idList as id
+              FROM List INNER JOIN Category
+              ON ((List.privacy = 0) AND (List.idList = Category.idList))
+              INNER JOIN Tag
+              ON ((Tag.idTag = Category.idTag) AND Tag.name = ?)
+              INNER JOIN Belongs
+              ON (Belongs.idList = List.idList)
+              INNER JOIN User
+              ON ((User.username != ?) AND (Belongs.idUser = User.idUser))
+              GROUP BY List.idList) notUser,
+            (SELECT List.idList as id
+              FROM List INNER JOIN Category
+              ON (List.idList = Category.idList)
+              INNER JOIN Tag
+              ON ((Tag.idTag = Category.idTag) AND (Tag.name = ?))
+              INNER JOIN Belongs
+              ON (Belongs.idList = List.idList)
+              INNER JOIN User
+              ON ((User.username == ?) AND (Belongs.idUser = User.idUser))
+              GROUP BY List.idList) sessionUser
+        WHERE (List.idList = sessionUser.id OR List.idList = notUser.id)
+        GROUP BY List.idList
+        ORDER BY List.idList ASC');
+      $stmt->execute(array($tag,$username,$tag,$username));
+      return $stmt->fetchAll();
   }
 
   function SearchByUser($dbh,$username){

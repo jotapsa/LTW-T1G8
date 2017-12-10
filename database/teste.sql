@@ -4,16 +4,20 @@ SELECT List.* FROM List,
         ON ((List.privacy = 0) AND (List.idList = Category.idList))
         INNER JOIN Tag
         ON ((Tag.idTag = Category.idTag) AND Tag.name = 'feup')
+        INNER JOIN Belongs
+        ON (Belongs.idList = List.idList)
         INNER JOIN User
-        ON ((User.username != 'john') AND (User.idUser = List.idUser))
+        ON ((User.username != 'john') AND (Belongs.idUser = User.idUser))
         GROUP BY List.idList) notUser,
       (SELECT List.idList as id
         FROM List INNER JOIN Category
         ON (List.idList = Category.idList)
         INNER JOIN Tag
         ON ((Tag.idTag = Category.idTag) AND (Tag.name = 'feup'))
+        INNER JOIN Belongs
+        ON (Belongs.idList = List.idList)
         INNER JOIN User
-        ON ((User.username = 'john') AND (User.idUser = List.idUser))
+        ON ((User.username == 'john') AND (Belongs.idUser = User.idUser))
         GROUP BY List.idList) sessionUser
   WHERE (List.idList = sessionUser.id OR List.idList = notUser.id)
   GROUP BY List.idList

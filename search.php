@@ -26,7 +26,7 @@
     $tag = $_GET['tag'];
 
     if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
-      $lists = SearchbyTagSession($dbh,$username,$tag);
+      $lists = SearchbyTagSession($dbh,$_SESSION['username'],$tag);
     }
     else{
       $lists = SearchByTag($dbh,$tag);
