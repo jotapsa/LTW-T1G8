@@ -3,4 +3,5 @@
     </footer>
   </body>
   <script src="scripts/search.js" defer></script>
+  <script src="scripts/item.js" defer></script>
 </html>

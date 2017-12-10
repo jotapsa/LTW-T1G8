@@ -81,6 +81,11 @@
     $stmt->execute(array($checked,$idItem));
   }
 
+  function DeleteItem($dbh,$idItem){
+    $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idItem=?');
+    $stmt->execute(array($idItem));
+  }
+
   function getListbyItem($dbh,$idItem){
     $stmt = $dbh->prepare('SELECT List.* FROM List INNER JOIN Item ON (Item.idList = List.idList and Item.idItem = ?)');
     $stmt->execute(array($idItem));

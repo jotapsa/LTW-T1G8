@@ -10,21 +10,38 @@ addEventListenerList(items_uncheck,checkItem);
 addEventListenerList(items_check,checkItem);
 
 var add_buttons = document.getElementsByClassName("addItem");
-addEventListenerList(add_buttons,addItem);
+addEventListenerList(add_buttons,addItemInput);
+
+var delete_buttons = document.getElementsByClassName("deleteItem");
+addEventListenerList(delete_buttons,deleteItem);
+
+function $(selector) {
+  return document.querySelectorAll(selector);
+}
+
+NodeList.prototype.css = function(property, value) {
+  [].forEach.call(this, function(element) {
+    element.style[property] = value;
+  });
+  return this;
+}
 
 function checkItem(event){
   var id = this.id;
   id = id.substr(4);
-  console.log(id);
 
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        if(this.responseText == 1){
-          this.className = 'item-check';
-        }
-        else{
-          this.className = 'item-uncheck';
+        if(this.responseText != -1){
+          if(this.responseText == 1){
+            this.className = 'item-check';
+            $('#item'+id).css('background-color', '#8db600');
+          }
+          else{
+            this.className = 'item-uncheck';
+            $('#item'+id).css('background-color', 'white');
+          }
         }
       }
   };
@@ -33,10 +50,9 @@ function checkItem(event){
   xmlhttp.send();
 }
 
-function addItem(event){
+function addItemInput(event){
   var id = this.id;
   id = id.substr(4);
-  console.log(id);
   var confirm = document.getElementById('add'+id);
   var row = document.getElementById('addItem'+id);
   this.style.display="none";
@@ -49,5 +65,23 @@ function addItem(event){
   input.append(inputText);
   row.insertBefore(input, row.childNodes[1]);
   confirm.style.display="table-cell";
+}
 
+function deleteItem(event){
+  var id = this.id;
+  id = id.substr(6);
+  // console.log('id = ' + id);
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          var parent = document.getElementById('item' + id).parentElement;
+          parent.remove();
+        }
+      }
+  };
+
+  xmlhttp.open("GET", "action_delete_item.php?item=" + id, true);
+  xmlhttp.send();
 }
