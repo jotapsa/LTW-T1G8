@@ -1,6 +1,6 @@
 <?php
   function userTDLists($dbh,$username){
-    $stmt = $dbh->prepare('SELECT List.* FROM User,List WHERE User.username = ? and User.idUser = List.idUser ORDER BY List.editedDate DESC');
+    $stmt = $dbh->prepare('SELECT List.* FROM Belongs INNER JOIN User ON (User.username =? and User.idUser = Belongs.idUser) INNER JOIN List ON (Belongs.idList = List.idList) ORDER BY List.editedDate DESC');
     $stmt->execute(array($username));
     return $stmt->fetchAll();
   }
@@ -36,12 +36,69 @@
   }
 
   function SearchbyTagSession($dbh,$username,$tag){
-
+      $stmt = $dbh->prepare('SELECT List.* FROM List,
+        (SELECT List.idList as id
+              FROM List INNER JOIN Category
+              ON ((List.privacy = 0) AND (List.idList = Category.idList))
+              INNER JOIN Tag
+              ON ((Tag.idTag = Category.idTag) AND Tag.name = ?)
+              INNER JOIN Belongs
+              ON (Belongs.idList = List.idList)
+              INNER JOIN User
+              ON ((User.username != ?) AND (Belongs.idUser = User.idUser))
+              GROUP BY List.idList) notUser,
+            (SELECT List.idList as id
+              FROM List INNER JOIN Category
+              ON (List.idList = Category.idList)
+              INNER JOIN Tag
+              ON ((Tag.idTag = Category.idTag) AND (Tag.name = ?))
+              INNER JOIN Belongs
+              ON (Belongs.idList = List.idList)
+              INNER JOIN User
+              ON ((User.username == ?) AND (Belongs.idUser = User.idUser))
+              GROUP BY List.idList) sessionUser
+        WHERE (List.idList = sessionUser.id OR List.idList = notUser.id)
+        GROUP BY List.idList
+        ORDER BY List.idList ASC');
+      $stmt->execute(array($tag,$username,$tag,$username));
+      return $stmt->fetchAll();
   }
 
   function SearchByUser($dbh,$username){
-    $stmt = $dbh->prepare('SELECT List.* FROM List INNER JOIN User ON ((List.idUser = User.idUser) AND (User.username = ?) AND (List.privacy = 0))');
+    $stmt = $dbh->prepare('SELECT List.* FROM Belongs INNER JOIN User ON (Belongs.idUser = User.idUser AND User.username = ?) INNER JOIN List ON (Belongs.idList = List.idList AND List.privacy = 0)');
     $stmt->execute(array($username));
     return $stmt->fetchAll();
+  }
+
+  function getItem($dbh,$idItem){
+    $stmt = $dbh->prepare('SELECT Item.* FROM Item WHERE Item.idItem = ?');
+    $stmt->execute(array($idItem));
+    return $stmt->fetch();
+  }
+
+  function UpdateItem($dbh,$idItem,$checked){
+    $stmt = $dbh->prepare('UPDATE Item SET checked = ? WHERE Item.idItem = ?');
+    $stmt->execute(array($checked,$idItem));
+  }
+
+  function DeleteItem($dbh,$idItem){
+    $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idItem=?');
+    $stmt->execute(array($idItem));
+  }
+
+  function getListbyItem($dbh,$idItem){
+    $stmt = $dbh->prepare('SELECT List.* FROM List INNER JOIN Item ON (Item.idList = List.idList and Item.idItem = ?)');
+    $stmt->execute(array($idItem));
+    return $stmt->fetch();
+  }
+
+  function UpdateList($dbh,$idList){
+
+  }
+
+  function ListBelongsUser($dbh,$username,$idList){
+    $stmt = $dbh->prepare('SELECT * FROM Belongs INNER JOIN User ON (Belongs.idUser = User.idUser AND User.username = ?) INNER JOIN List ON (Belongs.idList = List.idList AND List.idList = ?)');
+    $stmt->execute(array($username,$idList));
+    return $stmt->fetch() !== false;
   }
  ?>
