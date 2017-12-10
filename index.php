@@ -3,7 +3,6 @@
   include_once('database/connection.php');
   include_once('database/users.php');
   include_once('database/lists.php');
-  //$articles = getAllNews($dbh);
 
   include('templates/common/header.php');  // prints the initial part of the HTML document
   if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
@@ -16,5 +15,5 @@
     include('templates/lists/lists_guest.php');
   }
   //include('templates/news/list_news.php'); // prints the list of news in HTML
-  include('templates/common/footer.php');  // prints the initial part of the HTML document
+  include('templates/common/footer.php'); 
 ?>
