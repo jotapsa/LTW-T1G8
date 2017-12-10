@@ -1,9 +1,16 @@
+#login{
+    background-image: linear-gradient(to top, white, #89CFF0);
+
+    display: flex;
+    flex-flow: column nowrap;
+    height: 750px;
+}
+
 form {
-  background-color: white;
-  color: black;
-  margin: 2em auto;
-  width: 20em;
-  padding: 1em;
+    color: black;
+    margin: 2em auto;
+    width: 20em;
+    padding: 1em;
 }
 
 .val_error{

@@ -1,11 +1,4 @@
 /* header */
-/*
-body{
-  margin: 0;
-  display: grid;
-  grid-template-rows: [header] auto [header_end content] auto [content_end footer] auto;
-}
-*/
 
 body{
     display: flex;
@@ -26,7 +19,7 @@ body > header {
 
 body > header h1, body > header h2{
   margin: 0;
-  font-size: 50px;
+  font-size: 100px;
 }
 
 body > header a {
@@ -94,79 +87,6 @@ body > header #signup {
     display: block;
 }
 
-/* article */
-
-/*#news header {
-  max-width: 10em;
-  padding: 1em;
-  position: absolute;
-}
-
-#news header h1{
-  margin: 0;
-
-  text-shadow: .2em .2em .2em black;
-}
-
-#news header a{
-  color: white;
-  text-decoration: none;
-}
-
-#news img {
-  width: 100%;
-}
-
-#news > article {
-  background-color: white;
-
-  margin: 1em 1em 1em 0;
-}
-
-#news > article > p{
-  padding: 0 1em;
-}
-
-#news > article > p:first-of-type:first-letter{
-  font-size: 2em;
-}
-
-#news > article > a{
-  padding: 0 1em;
-  float: right;
-  color: black;
-}
-
-#news footer {
-  color: white;
-  background-color: #f4655f;
-
-  padding: 1em;
-}
-
-#news footer a{
-  color: white;
-  text-decoration: none;
-  border-bottom: 1px solid white;
-  padding-bottom: 2px;
-}
-
-#news footer .tags {
-  margin-right: 1em;
-}
-
-#news footer .comments {
-  margin-left: 1em;
-}
-
-#news footer .comments:after {
-  content: ' comments';
-}
-
-#news footer .author:before{
-  content: "By ";
-}*/
-
 /* footer */
 
 body > footer {
@@ -201,4 +121,27 @@ header h2 {
 
 header a {
   font-size: 0.8em;
+}
+
+@media all and (max-width: 500px) {
+    body > header{
+        display: flex;
+        flex-flow: row nowrap;
+    }
+
+    body > header > h1{
+        font-size: 50px;
+    }
+
+    body > header > #signup{
+        padding-top: 4em;
+    }
+
+    body > header #searchType{
+        display: none;
+    }
+
+    body > header > #signup input{
+        display: none;
+    }
 }
