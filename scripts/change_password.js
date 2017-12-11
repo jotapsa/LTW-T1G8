@@ -1,52 +1,72 @@
-function addEventListenerList(list,method) {
-      for (let i = 0;i < list.length; i++) {
-        list[i].addEventListener("click", method);
+let oldpassword = document.querySelector('#change_pwd input[name=oldpassword]');
+let password = document.querySelector('#change_pwd input[name=newpassword]');
+let repeat = document.querySelector('#change_pwd input[name=repeatpassword]');
+
+oldpassword.addEventListener('keyup', validateOldPassword, false);
+password.addEventListener('keyup', validatePassword, false);
+repeat.addEventListener('keyup', validateRepeat, false);
+
+let change_password = document.querySelector('#change_pwd form');
+change_password.addEventListener('submit', validateRegister, false);
+
+function validateOldPassword(event){
+  str = this.value;
+  if(str.length == 0){
+    this.classList.remove('valid');
+    this.classList.remove('invalid');
+    return;
+  }
+
+  listClass = this.classList;
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText > 0){
+          listClass.remove('valid');
+          listClass.add('invalid');
+        }
+        else {
+          listClass.remove('invalid');
+          listClass.add('valid');
+        }
       }
+  };
+
+  xmlhttp.open("POST", "check_password.php", true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xmlhttp.send('password='+str);
 }
 
-var submit = document.getElementsByClassName("submit");
-var inputs = document.getElementById("changePasswordForm").getElementsByTagName('input');
-addEventListenerList(submit,checkSubmit);
-
-function checkSubmit(event){
-  console.log(inputs);
+function validatePassword(event) {
+  if (!/^\w{3,}$/.test(this.value)){
+    this.classList.remove('valid');
+    this.classList.add('invalid');
+  }
+  else{
+    this.classList.remove('invalid');
+    this.classList.add('valid');
+  }
+  validateRepeat();
 }
 
-// let username = document.querySelector('#register input[name=username]');
-// username.addEventListener('keyup', validateUsername, false);
-//
-// let password = document.querySelector('#register input[name=password]');
-// let repeat = document.querySelector('#register input[name=repeat]');
-// password.addEventListener('keyup', validatePassword, false);
-// repeat.addEventListener('keyup', validateRepeat.bind(repeat, password), false);
-//
-// let register = document.querySelector('#register form');
-// register.addEventListener('submit', validateRegister, false);
-//
-// function validateUsername() {
-//   if (!/^[a-z]{3,}$/.test(this.value))
-//     this.classList.add('invalid');
-//   else
-//     this.classList.remove('invalid');
-// }
-//
-// function validatePassword(other) {
-//   if (!/^.*(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$/.test(this.value))
-//     this.classList.add('invalid');
-//   else
-//     this.classList.remove('invalid');
-// }
-//
-// function validateRepeat(password) {
-//   if (this.value !== password.value)
-//     this.classList.add('invalid');
-//   else
-//     this.classList.remove('invalid');
-// }
-//
-// function validateRegister(event) {
-//   let inputs = this.querySelectorAll('input');
-//   for (let i = 0; i < inputs.length; i++)
-//     if (inputs[i].classList.contains('invalid'))
-//      event.preventDefault();
-// }
+function validateRepeat(event) {
+  if (repeat.value !== password.value){
+    repeat.classList.remove('valid');
+    repeat.classList.add('invalid');
+  }
+  else{
+    repeat.classList.remove('invalid');
+    repeat.classList.add('valid');
+  }
+}
+
+function validateRegister(event) {
+  let inputs = this.querySelectorAll('input');
+  for (let i = 1; i < inputs.length; i++){
+    if (inputs[i].classList.contains('invalid'))
+     event.preventDefault();
+  }
+
+  window.alert('Your password has been changed successfully!');
+}

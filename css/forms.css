@@ -13,6 +13,33 @@ form {
     padding: 1em;
 }
 
+form .hint {
+  font-size: 1em;
+  align-self: center;
+  display: none;
+}
+
+form input.invalid {
+  border: 1px solid red;
+  box-shadow: red 0 0 2px 2px;
+}
+
+form input.valid {
+  border: 1px solid green;
+  box-shadow: green 0 0 2px 2px;
+}
+
+form input.valid + .hint{
+  display: none;
+}
+
+form input.invalid + .hint{
+  display: grid;
+  text-align: center;
+  color: red;
+  padding-top: 1em;
+}
+
 .val_error{
   padding: 0em 1em;
 }
@@ -39,7 +66,7 @@ form {
   display: flex;
 }
 
-form input[type="text"] {
+form input {
   display: block;
   width: 100%;
   padding: 0.5em;

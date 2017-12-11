@@ -1,7 +1,7 @@
 <?php
   function userExists($dbh,$username,$password){
     $stmt = $dbh->prepare('SELECT * FROM User WHERE username = ? AND password = ?');
-    $stmt->execute(array($username,sha256($password)));
+    $stmt->execute(array($username,hash('sha256',$password)));
     return $stmt->fetch() !== false;
   }
 
@@ -19,7 +19,7 @@
 
   function RegisterUser($dbh,$username,$password,$birthday,$registerDate,$gender,$nickname,$email,$path){
     $stmt = $dbh->prepare('INSERT INTO User VALUES (?,?,?,?,?,?,?,?,?)');
-    $stmt->execute(array(NULL,$username,sha1($password),$birthday,$registerDate,$gender,$nickname,$email,$path));
+    $stmt->execute(array(NULL,$username,hash('sha256',$password),$birthday,$registerDate,$gender,$nickname,$email,$path));
   }
 
   function getUserbySession($dbh,$username){
@@ -35,6 +35,19 @@
   }
 
   function CheckUserPassword($dbh,$username,$password){
+    $stmt = $dbh->prepare('SELECT * FROM User WHERE User.username = ? AND User.password = ?');
+    $stmt->execute(array($username,$password));
+    return $stmt->fetch() !== false;
+  }
 
+  function UpdatePassword($dbh,$username,$password){
+    $stmt = $dbh->prepare('UPDATE User SET password = ? WHERE User.username = ?');
+    $stmt->execute(array($password,$username));
+  }
+
+  function emailExists($dbh,$email){
+    $stmt = $dbh->prepare('SELECT * FROM User WHERE User.email = ?');
+    $stmt->execute(array($email));
+    return $stmt->fetch() !== false;
   }
  ?>
