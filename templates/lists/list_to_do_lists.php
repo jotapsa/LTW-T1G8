@@ -13,11 +13,7 @@
         if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
           if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {?>
             <i class="deleteButton" id="deleteList<?=$todolist['idList']?>">delete</i>
-        <?}
-        }
-        if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
-          if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {
-            if($todolist['privacy'] == 1)
+        <?  if($todolist['privacy'] == 1)
               $privacy = 'lock';
             else {
               $privacy = 'lock_open';
@@ -26,6 +22,11 @@
         <?}
         }?>
           <h1><a><?=$todolist['title']?></a></h1>
+        <?php if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
+                if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {?>
+                  <i class="tagsButton" id="tagsList<?=$todolist['idList']?>">local_offer</i>
+            <?}
+            }?>
       </header>
       <section class="items">
         <table>

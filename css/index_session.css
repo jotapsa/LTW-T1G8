@@ -162,6 +162,27 @@
   font-size: 40px;
 }
 
+.tagsButton{
+  cursor: pointer;
+  border-radius: 100%;
+  font-size: 35px;
+  color: orange;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 0;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+}
+
+.tagsButton:hover{
+  font-size: 40px;
+}
+
 #nav{
   background-color: #000000;
 }
