@@ -90,9 +90,9 @@
     $stmt = $dbh->prepare('INSERT INTO Item VALUES(NULL,?,0,?)');
     $stmt->execute(array($info,$idList));
 
-    $stmt = $dbh->prepare('SELECT COUNT(Item.idItem) as num FROM Item');
+    $stmt = $dbh->prepare('SELECT Item.idItem as id FROM Item ORDER BY Item.idItem DESC LIMIT 1');
     $stmt->execute(array());
-    echo $stmt->fetch()['num'];
+    echo $stmt->fetch()['id'];
 
     updateList($dbh,$idList);
   }

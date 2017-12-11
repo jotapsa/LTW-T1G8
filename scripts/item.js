@@ -4,22 +4,32 @@ function addEventListenerList(list,method) {
       }
 }
 
-var items_uncheck = document.getElementsByClassName("item-uncheck");
-var items_check = document.getElementsByClassName("item-check");
-addEventListenerList(items_uncheck,checkItem);
-addEventListenerList(items_check,checkItem);
+var items_uncheck,items_check,add_items,delete_items,delete_lists,add_list;
 
-var add_items = document.getElementsByClassName("addItem");
-addEventListenerList(add_items,addItemInput);
+Init();
 
-var delete_items = document.getElementsByClassName("deleteItem");
-addEventListenerList(delete_items,deleteItem);
+function Init(){
 
-var delete_lists = document.getElementsByClassName("deleteButton");
-addEventListenerList(delete_lists,deleteList);
+  items_uncheck = document.getElementsByClassName("item-uncheck");
+  items_check = document.getElementsByClassName("item-check");
+  addEventListenerList(items_uncheck,checkItem);
+  addEventListenerList(items_check,checkItem);
 
-var add_list = document.getElementsByClassName("addList");
-addEventListenerList(add_list,addList);
+  add_items = document.getElementsByClassName("addItem");
+  addEventListenerList(add_items,addItemInput);
+
+  delete_items = document.getElementsByClassName("deleteItem");
+  addEventListenerList(delete_items,deleteItem);
+
+  delete_lists = document.getElementsByClassName("deleteButton");
+  addEventListenerList(delete_lists,deleteList);
+
+  add_list = document.getElementsByClassName("addList");
+  addEventListenerList(add_list,addList);
+
+  var add_item_confirm = document.getElementsByClassName("addItemConfirm");
+  addEventListenerList(add_item_confirm,addItem);
+}
 
 var n_lists=0;
 var add_lists=0;
@@ -41,6 +51,7 @@ function addItem(event){
   id = id.substr(3);
 
   var input = document.getElementById('input'+id);
+  var table = document.getElementById('addItem'+id).parentElement;
   str = input.value;
 
   if(str.length == 0){
@@ -56,10 +67,26 @@ function addItem(event){
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           if(this.responseText != -1){
+            var newID = this.responseText;
             var item = document.createElement("tr");
-            
+
+            var item_info = document.createElement("td");
+            item_info.setAttribute("class","item-uncheck");
+            item_info.setAttribute("id","item"+newID);
+            item_info.innerHTML = str;
+            item.appendChild(item_info);
+
+            var delete_item = document.createElement("td");
+            delete_item.setAttribute("class","deleteItem");
+            delete_item.setAttribute("id","delete"+newID);
+            delete_item.innerHTML = 'X';
+            item.appendChild(delete_item);
+
+            table.insertBefore(item, table.childNodes[table.childNodes.length-2]);
+
             updateDate(date[0]);
-            $('#addItem'+id+ ' .addItem').css('display', 'grid');
+            $('#addItem'+id+ ' .addItem').css('display', 'table-cell');
+            Init();
           }
         }
     };
@@ -121,14 +148,13 @@ function addItemInput(event){
   add_confirm.innerHTML = '✓';
   add.appendChild(add_confirm);
 
-  var add_item_confirm = document.getElementsByClassName("addItemConfirm");
-  addEventListenerList(add_item_confirm,addItem);
-
   var inputText = document.createElement("input");
   inputText.setAttribute('type','text');
   inputText.setAttribute('name','newItem');
   inputText.setAttribute('id','input'+id);
   add.insertBefore(inputText, add.childNodes[1]);
+
+  Init();
 
   inputText.focus();
 }
