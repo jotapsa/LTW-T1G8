@@ -119,9 +119,21 @@
     $stmt->execute(array($privacy,$idList));
   }
 
-  function addList($dbh){
-    // $stmt = $dbh->prepare('INSERT INTO List VALUES(NULL,0,'Projetos','ff0000',0,NULL,1511118000);');
-    // $stmt->execute(array($idList));
+  function addList($dbh,$idUser){
+    //List
+    $stmt = $dbh->prepare('INSERT INTO List VALUES(?,?,?,?,?,?)');
+    $stmt->execute(array(NULL,0,'Title','ff0000',0,time()));
+
+    //Get List.id
+    $stmt = $dbh->prepare('SELECT List.idList as id FROM List ORDER BY List.idList DESC LIMIT 1');
+    $stmt->execute(array());
+    $idList = $stmt->fetch()['id'];
+
+    //Belongs
+    $stmt = $dbh->prepare('INSERT INTO Belongs VALUES(?,?)');
+    $stmt->execute(array($idList,$idUser));
+
+    echo $idList;
   }
 
   function deleteList($dbh,$idList){

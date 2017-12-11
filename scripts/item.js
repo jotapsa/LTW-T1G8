@@ -200,78 +200,58 @@ function getNumberLists(){
 }
 
 function addList(event){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          var id = this.responseText;
+          var section = document.getElementById("to-do-lists");
 
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function() {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       if(this.responseText != -1){
-  //
-  //         Init();
-  //       }
-  //     }
-  // };
-  //
-  // xmlhttp.open("GET", "action_add_list.php", true);
-  // xmlhttp.send();
+          var newList = document.createElement("article");
+          newList.setAttribute("id","list"+id);
 
+          var header = document.createElement("header");
+          header.setAttribute("class","list-unchecked");
+          newList.appendChild(header);
 
-  var section = document.getElementById("to-do-lists");
+          var del_button = document.createElement("i");
+          del_button.setAttribute("class","deleteButton");
+          del_button.setAttribute("id","deleteList"+id);
+          del_button.innerHTML = 'delete';
+          header.appendChild(del_button);
 
-  var newList = document.createElement("article");
-  newList.setAttribute("id","list"+id);
+          var title = document.createElement("h1");
+          var title_a = document.createElement("a");
+          title_a.innerHTML = 'Title'
+          title.appendChild(title_a);
+          header.appendChild(title);
 
-  var header = document.createElement("header");
-  header.setAttribute("class","list-unchecked");
-  newList.appendChild(header);
+          var section_items = document.createElement("section");
+          section_items.setAttribute("class","items");
+          newList.appendChild(section_items);
 
-  var del_button = document.createElement("i");
-  del_button.setAttribute("class","deleteButton");
-  del_button.setAttribute("id","deleteList"+id);
-  del_button.innerHTML = 'delete';
-  header.appendChild(del_button);
+          var table = document.createElement("table");
+          section_items.appendChild(table);
 
-  var title = document.createElement("h1");
-  var title_a = document.createElement("a");
-  title_a.innerHTML = 'Título'
-  title.appendChild(title_a);
-  header.appendChild(title);
+          var add = document.createElement("tr");
+          add.setAttribute("id","addItem"+id);
+          table.appendChild(add);
 
-  var section_items = document.createElement("section");
-  section_items.setAttribute("class","items");
-  newList.appendChild(section_items);
+          var add_button = document.createElement("td");
+          add_button.setAttribute("class","addItem");
+          add_button.innerHTML = '+';
+          add.appendChild(add_button);
 
-  var table = document.createElement("table");
-  section_items.appendChild(table);
+          section.insertBefore(item, section.childNodes[0]);
 
-  var add = document.createElement("tr");
-  add.setAttribute("id","addItem"+id);
-  table.appendChild(add);
+          Init();
+          console.log(newList);
+        }
+      }
+  };
 
-  var add_button = document.createElement("td");
-  add_button.setAttribute("class","addItem");
-  add_button.innerHTML = '+';
-  add.appendChild(add_button);
-
-  section.appendChild(newList);
-
-  Init();
-
-  console.log(newList);
-
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function() {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       if(this.responseText != -1){
-  //         var todolist = document.getElementById('list' + id);
-  //         todolist.remove();
-  //       }
-  //     }
-  // };
-  //
-  // xmlhttp.open("GET", "action_delete_list.php?list=" + id, true);
-  // xmlhttp.send();
-
-
+  xmlhttp.open("GET", "action_add_list.php", true);
+  xmlhttp.send();
 }
 
 function deleteList(event){
