@@ -3,7 +3,14 @@
   include_once('database/connection.php');
   include_once('database/users.php');
 
-  $username = $_GET["username"];
+  if(isset($_GET["username"]) && $_GET["username"] != ''){
+    $username = $_GET["username"];
+  }
+  else {
+    echo -1;
+    return;
+  }
+
   if(usernameExists($dbh,$username)){
     echo 1;
   }

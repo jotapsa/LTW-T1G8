@@ -4,8 +4,6 @@
   include_once('database/users.php');      // loads the functions responsible for the users table
 
   if(!isset($_POST['username']) || !isset($_POST['password']) || !isset($_POST['nickname']) || !isset($_POST['email'])){
-    // $message = "Missing Fields!";
-    // echo "<script type='text/javascript'>alert('$message');</script>";
     header('Location: register.php');
     exit();
   }

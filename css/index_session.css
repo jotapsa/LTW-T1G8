@@ -109,9 +109,14 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
+  box-shadow: 1px 1px 2px #999;
 }
 
-.addButton{
+.deleteButton:hover{
+  font-size: 40px;
+}
+
+.addList{
   position: absolute;
   background-color: green;
   cursor: pointer;
@@ -128,6 +133,11 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
+  box-shadow: 1px 1px 2px #999;
+}
+
+.addList:hover{
+  font-size: 40px;
 }
 
 #nav{

@@ -15,8 +15,13 @@ addEventListenerList(add_items,addItemInput);
 var delete_items = document.getElementsByClassName("deleteItem");
 addEventListenerList(delete_items,deleteItem);
 
-var delete_lists = document.getElementsByClassName("material-icons");
+var delete_lists = document.getElementsByClassName("deleteButton");
 addEventListenerList(delete_lists,deleteList);
+
+var add_list = document.getElementsByClassName("addList");
+addEventListenerList(add_list,addList);
+
+var n_lists;
 
 function $(selector) {
   return document.querySelectorAll(selector);
@@ -101,6 +106,27 @@ function deleteItem(event){
 
   xmlhttp.open("GET", "action_delete_item.php?item=" + id, true);
   xmlhttp.send();
+}
+
+function getNumberLists(){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          n_lists = this.responseText;
+        }
+      }
+  };
+
+  xmlhttp.open("GET", "action_update_list.php", true);
+  xmlhttp.send();
+}
+
+function addList(event){
+  var id = getNumberLists();
+  console.log(id);
+  // var newList = document.createElement("article");
+  // newList.setAttribute("id","list10");
 }
 
 function deleteList(event){

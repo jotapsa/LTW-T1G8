@@ -17,7 +17,7 @@
   </div>
 
   <div id="user_lists">
-    <i class="addButton" id="deleteList<?=$todolist['idList']?>">add</i>
+    <i class="addList">add</i>
     <?php
       $lists = userTDLists($dbh,$user['username']);
       include('templates/lists/list_to_do_lists.php');
