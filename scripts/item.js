@@ -4,7 +4,7 @@ function addEventListenerList(list,method) {
       }
 }
 
-var items_uncheck,items_check,add_items,delete_items,delete_lists,add_list;
+var items_uncheck,items_check,add_items,delete_items,delete_lists,add_list,privacy_buttons;
 
 Init();
 
@@ -29,6 +29,9 @@ function Init(){
 
   var add_item_confirm = document.getElementsByClassName("addItemConfirm");
   addEventListenerList(add_item_confirm,addItem);
+
+  var privacy_buttons = document.getElementsByClassName("privacyButton");
+  addEventListenerList(privacy_buttons,changePrivacy);
 }
 
 var n_lists=0;
@@ -197,9 +200,20 @@ function getNumberLists(){
 }
 
 function addList(event){
-  add_lists++;
-  var id = parseInt(n_lists)+ parseInt(add_lists);
-  console.log(id);
+
+  // var xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function() {
+  //     if (this.readyState == 4 && this.status == 200) {
+  //       if(this.responseText != -1){
+  //
+  //         Init();
+  //       }
+  //     }
+  // };
+  //
+  // xmlhttp.open("GET", "action_add_list.php", true);
+  // xmlhttp.send();
+
 
   var section = document.getElementById("to-do-lists");
 
@@ -239,6 +253,9 @@ function addList(event){
   add.appendChild(add_button);
 
   section.appendChild(newList);
+
+  Init();
+
   console.log(newList);
 
   // var xmlhttp = new XMLHttpRequest();
@@ -272,5 +289,36 @@ function deleteList(event){
   };
 
   xmlhttp.open("GET", "action_delete_list.php?list=" + id, true);
+  xmlhttp.send();
+}
+
+function changePrivacy(event){
+  var id = this.id;
+  id = id.substr(11);
+  var privacy;
+
+  var text = this.innerHTML;
+  var self = this;
+  if(text == 'lock')
+    privacy = 0;
+  else {
+    privacy = 1;
+  }
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          if(privacy){
+            self.innerHTML = 'lock';
+          }
+          else{
+            self.innerHTML = 'lock_open';
+          }
+        }
+      }
+  };
+
+  xmlhttp.open("GET", "action_update_list.php?list=" + id + '&privacy=' + privacy, true);
   xmlhttp.send();
 }

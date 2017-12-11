@@ -4,18 +4,14 @@
   include_once('database/lists.php');
 
   if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
-    if(isset($_GET["new"]) && $_GET["new"] != ''){
-
+    if(isset($_GET["privacy"]) && $_GET["privacy"] != '' && isset($_GET["list"]) && $_GET["list"] != ''){
+      setPrivacyofList($dbh,$_GET["list"],$_GET["privacy"]);
+      updateModified($dbh,$_GET["list"]);
+      echo 0;
     }
-    else {
-      echo NumberofLists($dbh);
-    }
-
-
   }
   else {
     echo -1;
     return;
   }
-
  ?>

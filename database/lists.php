@@ -114,6 +114,16 @@
     return $stmt->fetch() !== false;
   }
 
+  function setPrivacyofList($dbh,$idList,$privacy){
+    $stmt = $dbh->prepare('UPDATE List SET privacy = ? WHERE List.idList = ?');
+    $stmt->execute(array($privacy,$idList));
+  }
+
+  function addList($dbh){
+    // $stmt = $dbh->prepare('INSERT INTO List VALUES(NULL,0,'Projetos','ff0000',0,NULL,1511118000);');
+    // $stmt->execute(array($idList));
+  }
+
   function deleteList($dbh,$idList){
     //Belongs
     $stmt = $dbh->prepare('DELETE FROM Belongs WHERE Belongs.idList = ?');
@@ -126,7 +136,7 @@
     //Category
     $stmt = $dbh->prepare('DELETE FROM Category WHERE Category.idList = ?');
     $stmt->execute(array($idList));
-    //update All Tags
+    //UPDATE All Tags
 
     //List
     $stmt = $dbh->prepare('DELETE FROM List WHERE List.idList = ?');

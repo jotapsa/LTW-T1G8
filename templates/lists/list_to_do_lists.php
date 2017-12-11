@@ -14,6 +14,16 @@
           if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {?>
             <i class="deleteButton" id="deleteList<?=$todolist['idList']?>">delete</i>
         <?}
+        }
+        if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
+          if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {
+            if($todolist['privacy'] == 1)
+              $privacy = 'lock';
+            else {
+              $privacy = 'lock_open';
+            }?>
+            <i class="privacyButton" id="privacyList<?=$todolist['idList']?>"><?=$privacy?></i>
+        <?}
         }?>
           <h1><a><?=$todolist['title']?></a></h1>
       </header>
