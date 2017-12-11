@@ -77,8 +77,6 @@
   }
 
   function updateModified($dbh,$idList){
-    echo $idList;
-    // $stmt = $dbh->prepare('UPDATE List SET editedDate = ? WHERE EXISTS (SELECT * FROM Item WHERE Item.idList = List.idList AND Item.idItem = ?)');
     $stmt = $dbh->prepare('UPDATE List SET editedDate = ? WHERE List.idList = ?');
     $stmt->execute(array(time(),$idList));
   }
@@ -86,6 +84,15 @@
   function updateItem($dbh,$idItem,$checked){
     $stmt = $dbh->prepare('UPDATE Item SET checked = ? WHERE Item.idItem = ?');
     $stmt->execute(array($checked,$idItem));
+  }
+
+  function addItem($dbh,$idList,$info){
+    $stmt = $dbh->prepare('INSERT INTO Item VALUES(NULL,?,0,?)');
+    $stmt->execute(array($info,$idList));
+
+    $stmt = $dbh->prepare('SELECT COUNT(Item.idItem) as num FROM Item');
+    $stmt->execute(array());
+    echo $stmt->fetch()['num'];
 
     updateList($dbh,$idList);
   }
@@ -124,5 +131,11 @@
     //List
     $stmt = $dbh->prepare('DELETE FROM List WHERE List.idList = ?');
     $stmt->execute(array($idList));
+  }
+
+  function NumberofLists($dbh){
+    $stmt = $dbh->prepare('SELECT Count(List.idList) as num FROM List');
+    $stmt->execute(array());
+    return $stmt->fetch()['num'];
   }
  ?>

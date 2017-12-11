@@ -163,14 +163,19 @@
     background-color: white;
 }
 
+.item-check:hover,
+.item-uncheck:hover{
+  font-weight: 600;
+}
+
 .items td {
     text-align: center;
     padding: 15px;
 }
 
-.items td:hover{
-    font-size: 25px;
-    font-weight: 600;
+.addItemConfirm:hover{
+  font-size: 15px;
+  box-shadow: 2px 2px 2px #999;
 }
 
 /* Footer */
@@ -218,12 +223,15 @@
   background-color: #4CAF50;
     border: none;
     color: white;
-    /*padding: 15px 32px;*/
     text-align: center;
     text-decoration: none;
     font-size: 16px;
     cursor: pointer;
     border-radius: 12px;
+}
+
+.addItem:hover{
+  box-shadow: 2px 2px 2px #999;
 }
 
 .deleteItem{
@@ -234,15 +242,21 @@
 }
 
 .deleteItem:hover{
-
+  box-shadow: 2px 2px 2px #999;
 }
 
 .addItemConfirm{
-  display: none;
   background-color: #4CAF50;
   border-radius: 12px;
   font-size: 15px;
   cursor: pointer;
+}
+
+input[name=newItem]{
+  text-align: center;
+  padding: 15px;
+  margin: 0em;
+  font-size: 15px;
 }
 
 .inputItem{

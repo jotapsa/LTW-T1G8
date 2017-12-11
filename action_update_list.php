@@ -3,14 +3,19 @@
   include_once('database/connection.php');
   include_once('database/lists.php');
 
-  $idList = $_GET["list"];
-
-  if(!isset($_SESSION['username'] )
-
   if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
-      echo 0;
+    if(isset($_GET["new"]) && $_GET["new"] != ''){
+
+    }
+    else {
+      echo NumberofLists($dbh);
+    }
+
+
   }
   else {
     echo -1;
+    return;
   }
+
  ?>

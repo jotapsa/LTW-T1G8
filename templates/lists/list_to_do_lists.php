@@ -38,7 +38,6 @@
             if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {?>
               <tr id="addItem<?=$todolist['idList']?>">
                 <td class="addItem">+</td>
-                <td class="addItemConfirm" id="add<?=$todolist['idList']?>">✓</td>
               </tr>
             <?}
           }?>

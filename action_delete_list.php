@@ -3,14 +3,21 @@
   include_once('database/connection.php');
   include_once('database/lists.php');
 
-  if(isset($_GET["new"]) && $_GET["new"] != ''){
-
+  if(isset($_GET["list"]) && $_GET["list"] != ''){
+    $idList = $_GET["list"];
   }
   else {
-    if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
-      
+    echo -1;
+    return;
+  }
 
+  if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
+    if(ListBelongsUser($dbh,$_SESSION['username'],$idList)) {
+      deleteList($dbh,$idList);
+      echo 0;
     }
-
+  }
+  else {
+    echo -1;
   }
  ?>

@@ -21,7 +21,9 @@ addEventListenerList(delete_lists,deleteList);
 var add_list = document.getElementsByClassName("addList");
 addEventListenerList(add_list,addList);
 
-var n_lists;
+var n_lists=0;
+var add_lists=0;
+getNumberLists();
 
 function $(selector) {
   return document.querySelectorAll(selector);
@@ -33,6 +35,41 @@ NodeList.prototype.css = function(property, value) {
   });
   return this;
 }
+
+function addItem(event){
+  var id = this.id;
+  id = id.substr(3);
+
+  var input = document.getElementById('input'+id);
+  str = input.value;
+
+  if(str.length == 0){
+    return;
+  }
+  else {
+    var date = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("date");
+
+    input.remove();
+    this.remove();
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          if(this.responseText != -1){
+            var item = document.createElement("tr");
+            
+            updateDate(date[0]);
+            $('#addItem'+id+ ' .addItem').css('display', 'grid');
+          }
+        }
+    };
+
+    xmlhttp.open("POST", "action_add_item.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send('info='+str+'&list='+id);
+  }
+}
+
 
 function updateDate(date){
   let d = new Date();
@@ -70,20 +107,30 @@ function checkItem(event){
 }
 
 function addItemInput(event){
-  var id = this.id;
-  id = id.substr(4);
-  var confirm = document.getElementById('add'+id);
-  var row = document.getElementById('addItem'+id);
-  this.style.display="none";
-  var input = document.createElement("td");
-  input.setAttribute('id','newItem' + id);
-  input.setAttribute('class','inputItem');
+  var id = this.parentElement.id;
+  id = id.substr(7);
+  console.log("addItemInput -> " + id);
+
+  $('#addItem'+id+ ' .addItem').css('display', 'none');
+
+  var add = document.getElementById("addItem"+id);
+
+  var add_confirm = document.createElement("td");
+  add_confirm.setAttribute("id","add"+id);
+  add_confirm.setAttribute("class","addItemConfirm");
+  add_confirm.innerHTML = '✓';
+  add.appendChild(add_confirm);
+
+  var add_item_confirm = document.getElementsByClassName("addItemConfirm");
+  addEventListenerList(add_item_confirm,addItem);
+
   var inputText = document.createElement("input");
   inputText.setAttribute('type','text');
   inputText.setAttribute('name','newItem');
-  input.append(inputText);
-  row.insertBefore(input, row.childNodes[1]);
-  confirm.style.display="table-cell";
+  inputText.setAttribute('id','input'+id);
+  add.insertBefore(inputText, add.childNodes[1]);
+
+  inputText.focus();
 }
 
 function deleteItem(event){
@@ -95,7 +142,6 @@ function deleteItem(event){
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        console.log(this.responseText);
         if(this.responseText != -1){
           var parent = document.getElementById('item' + id).parentElement;
           parent.remove();
@@ -109,24 +155,80 @@ function deleteItem(event){
 }
 
 function getNumberLists(){
+  var number;
+  var self = this;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         if(this.responseText != -1){
-          n_lists = this.responseText;
+          self.n_lists = this.responseText;
         }
       }
   };
 
-  xmlhttp.open("GET", "action_update_list.php", true);
+  xmlhttp.open("GET", "action_update_list.php", false);
   xmlhttp.send();
 }
 
 function addList(event){
-  var id = getNumberLists();
+  add_lists++;
+  var id = parseInt(n_lists)+ parseInt(add_lists);
   console.log(id);
-  // var newList = document.createElement("article");
-  // newList.setAttribute("id","list10");
+
+  var section = document.getElementById("to-do-lists");
+
+  var newList = document.createElement("article");
+  newList.setAttribute("id","list"+id);
+
+  var header = document.createElement("header");
+  header.setAttribute("class","list-unchecked");
+  newList.appendChild(header);
+
+  var del_button = document.createElement("i");
+  del_button.setAttribute("class","deleteButton");
+  del_button.setAttribute("id","deleteList"+id);
+  del_button.innerHTML = 'delete';
+  header.appendChild(del_button);
+
+  var title = document.createElement("h1");
+  var title_a = document.createElement("a");
+  title_a.innerHTML = 'Título'
+  title.appendChild(title_a);
+  header.appendChild(title);
+
+  var section_items = document.createElement("section");
+  section_items.setAttribute("class","items");
+  newList.appendChild(section_items);
+
+  var table = document.createElement("table");
+  section_items.appendChild(table);
+
+  var add = document.createElement("tr");
+  add.setAttribute("id","addItem"+id);
+  table.appendChild(add);
+
+  var add_button = document.createElement("td");
+  add_button.setAttribute("class","addItem");
+  add_button.innerHTML = '+';
+  add.appendChild(add_button);
+
+  section.appendChild(newList);
+  console.log(newList);
+
+  // var xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function() {
+  //     if (this.readyState == 4 && this.status == 200) {
+  //       if(this.responseText != -1){
+  //         var todolist = document.getElementById('list' + id);
+  //         todolist.remove();
+  //       }
+  //     }
+  // };
+  //
+  // xmlhttp.open("GET", "action_delete_list.php?list=" + id, true);
+  // xmlhttp.send();
+
+
 }
 
 function deleteList(event){
