@@ -12,7 +12,7 @@
     <?php } ?>
           <h1><a><?=$todolist['title']?></a></h1>
       </header>
-      <section id="items">
+      <section class="items">
         <table>
         <?php foreach ($items as $item) { ?>
           <tr>
@@ -38,13 +38,13 @@
             <?}
           }?>
         </table>
+        <footer>
+          <?php foreach($tags as $tag){ ?>
+          <span class="tags"><a href="search.php?tag=<?=$tag['name']?>">#<?=$tag['name']?></a></span>
+          <?php } ?>
+          <span id="date<?=$todolist['idList']?>"class="date"><?php echo gmdate('d/m/y',$todolist['editedDate'])?></span>
+        </footer>
       </section>
-      <footer>
-        <?php foreach($tags as $tag){ ?>
-        <span class="tags"><a href="search.php?tag=<?=$tag['name']?>">#<?=$tag['name']?></a></span>
-        <?php } ?>
-        <span class="date"><?php echo gmdate('d/m/y',$todolist['editedDate'])?></span>
-      </footer>
     </article>
   <?php } ?>
   </section>

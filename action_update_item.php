@@ -12,9 +12,8 @@
   }
   if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
     if(ListBelongsUser($dbh,$_SESSION['username'],$item['idList'])) {
-      UpdateItem($dbh,$_GET["item"],$checked);
-      $idList = getListbyItem($dbh,$_GET["item"]);
-      UpdateList($dbh,$idList);
+      updateItem($dbh,$_GET["item"],$checked);
+      updateModified($dbh,$item['idList']);
       echo $checked;
     }
   }

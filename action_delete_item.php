@@ -7,10 +7,9 @@
 
   if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
     if(ListBelongsUser($dbh,$_SESSION['username'],$item['idList'])) {
-      $idList = getListbyItem($dbh,$_GET["item"]);
-      DeleteItem($dbh,$_GET["item"]);
-      UpdateList($dbh,$idList);
-      echo 0;
+      deleteItem($dbh,$_GET["item"]);
+      updateModified($dbh,$item['idList']);
+      // echo 0;
     }
   }
   else {

@@ -76,23 +76,28 @@
     return $stmt->fetch();
   }
 
-  function UpdateItem($dbh,$idItem,$checked){
+  function updateModified($dbh,$idList){
+    echo $idList;
+    // $stmt = $dbh->prepare('UPDATE List SET editedDate = ? WHERE EXISTS (SELECT * FROM Item WHERE Item.idList = List.idList AND Item.idItem = ?)');
+    $stmt = $dbh->prepare('UPDATE List SET editedDate = ? WHERE List.idList = ?');
+    $stmt->execute(array(time(),$idList));
+  }
+
+  function updateItem($dbh,$idItem,$checked){
     $stmt = $dbh->prepare('UPDATE Item SET checked = ? WHERE Item.idItem = ?');
     $stmt->execute(array($checked,$idItem));
+
+    updateList($dbh,$idList);
   }
 
-  function DeleteItem($dbh,$idItem){
+  function deleteItem($dbh,$idItem){
     $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idItem=?');
     $stmt->execute(array($idItem));
+
+    updateList($dbh,$idList);
   }
 
-  function getListbyItem($dbh,$idItem){
-    $stmt = $dbh->prepare('SELECT List.* FROM List INNER JOIN Item ON (Item.idList = List.idList and Item.idItem = ?)');
-    $stmt->execute(array($idItem));
-    return $stmt->fetch();
-  }
-
-  function UpdateList($dbh,$idList){
+  function updateList($dbh,$idList){
 
   }
 
