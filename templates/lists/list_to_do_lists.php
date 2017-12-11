@@ -25,6 +25,7 @@
         <?php if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
                 if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {?>
                   <i class="tagsButton" id="tagsList<?=$todolist['idList']?>">local_offer</i>
+                  <i class="titleButton" id="titleList<?=$todolist['idList']?>">title</i>
             <?}
             }?>
       </header>
