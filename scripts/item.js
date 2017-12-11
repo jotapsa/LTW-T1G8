@@ -9,11 +9,14 @@ var items_check = document.getElementsByClassName("item-check");
 addEventListenerList(items_uncheck,checkItem);
 addEventListenerList(items_check,checkItem);
 
-var add_buttons = document.getElementsByClassName("addItem");
-addEventListenerList(add_buttons,addItemInput);
+var add_items = document.getElementsByClassName("addItem");
+addEventListenerList(add_items,addItemInput);
 
-var delete_buttons = document.getElementsByClassName("deleteItem");
-addEventListenerList(delete_buttons,deleteItem);
+var delete_items = document.getElementsByClassName("deleteItem");
+addEventListenerList(delete_items,deleteItem);
+
+var delete_lists = document.getElementsByClassName("material-icons");
+addEventListenerList(delete_lists,deleteList);
 
 function $(selector) {
   return document.querySelectorAll(selector);
@@ -97,5 +100,23 @@ function deleteItem(event){
   };
 
   xmlhttp.open("GET", "action_delete_item.php?item=" + id, true);
+  xmlhttp.send();
+}
+
+function deleteList(event){
+  var id = this.id;
+  id = id.substr(10);
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          var todolist = document.getElementById('list' + id);
+          todolist.remove();
+        }
+      }
+  };
+
+  xmlhttp.open("GET", "action_delete_list.php?list=" + id, true);
   xmlhttp.send();
 }

@@ -106,4 +106,23 @@
     $stmt->execute(array($username,$idList));
     return $stmt->fetch() !== false;
   }
+
+  function deleteList($dbh,$idList){
+    //Belongs
+    $stmt = $dbh->prepare('DELETE FROM Belongs WHERE Belongs.idList = ?');
+    $stmt->execute(array($idList));
+
+    //Items
+    $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idList = ?');
+    $stmt->execute(array($idList));
+
+    //Category
+    $stmt = $dbh->prepare('DELETE FROM Category WHERE Category.idList = ?');
+    $stmt->execute(array($idList));
+    //update All Tags
+
+    //List
+    $stmt = $dbh->prepare('DELETE FROM List WHERE List.idList = ?');
+    $stmt->execute(array($idList));
+  }
  ?>

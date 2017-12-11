@@ -3,12 +3,11 @@
   include_once('database/connection.php');
   include_once('database/lists.php');
 
-  $item = getItem($dbh,$_GET["item"]);
+  $idList = $_GET["list"];
 
   if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
-    if(ListBelongsUser($dbh,$_SESSION['username'],$item['idList'])) {
-      deleteItem($dbh,$_GET["item"]);
-      updateModified($dbh,$item['idList']);
+    if(ListBelongsUser($dbh,$_SESSION['username'],$idList)) {
+      deleteList($dbh,$idList);
       echo 0;
     }
   }
