@@ -6,7 +6,13 @@
   $dataList = array();
   $i = 0;
 
-  $user = $_GET["user"];
+  if(isset($_GET["user"]) && $_GET["user"] != ''){
+    $user = $_GET["user"];
+  }
+  else {
+    echo -1;
+    return;
+  }
 
   // lookup all hints from array if $q is different from ""
   if ($user !== "") {

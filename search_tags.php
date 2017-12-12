@@ -6,7 +6,13 @@
   $dataList = array();
   $i = 0;
 
-  $tag = $_GET["tag"];
+  if(isset($_GET["tag"]) && $_GET["tag"] != ''){
+    $tag = $_GET["tag"];
+  }
+  else {
+    echo -1;
+    return;
+  }
 
   // lookup all hints from array if $q is different from ""
   if ($tag !== "") {

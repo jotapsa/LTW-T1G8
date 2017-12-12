@@ -76,23 +76,35 @@
     return $stmt->fetch();
   }
 
-  function UpdateItem($dbh,$idItem,$checked){
+  function updateModified($dbh,$idList){
+    $stmt = $dbh->prepare('UPDATE List SET editedDate = ? WHERE List.idList = ?');
+    $stmt->execute(array(time(),$idList));
+  }
+
+  function updateItem($dbh,$idItem,$checked){
     $stmt = $dbh->prepare('UPDATE Item SET checked = ? WHERE Item.idItem = ?');
     $stmt->execute(array($checked,$idItem));
   }
 
-  function DeleteItem($dbh,$idItem){
+  function addItem($dbh,$idList,$info){
+    $stmt = $dbh->prepare('INSERT INTO Item VALUES(NULL,?,0,?)');
+    $stmt->execute(array($info,$idList));
+
+    $stmt = $dbh->prepare('SELECT COUNT(Item.idItem) as num FROM Item');
+    $stmt->execute(array());
+    echo $stmt->fetch()['num'];
+
+    updateList($dbh,$idList);
+  }
+
+  function deleteItem($dbh,$idItem){
     $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idItem=?');
     $stmt->execute(array($idItem));
+
+    updateList($dbh,$idList);
   }
 
-  function getListbyItem($dbh,$idItem){
-    $stmt = $dbh->prepare('SELECT List.* FROM List INNER JOIN Item ON (Item.idList = List.idList and Item.idItem = ?)');
-    $stmt->execute(array($idItem));
-    return $stmt->fetch();
-  }
-
-  function UpdateList($dbh,$idList){
+  function updateList($dbh,$idList){
 
   }
 
@@ -100,5 +112,30 @@
     $stmt = $dbh->prepare('SELECT * FROM Belongs INNER JOIN User ON (Belongs.idUser = User.idUser AND User.username = ?) INNER JOIN List ON (Belongs.idList = List.idList AND List.idList = ?)');
     $stmt->execute(array($username,$idList));
     return $stmt->fetch() !== false;
+  }
+
+  function deleteList($dbh,$idList){
+    //Belongs
+    $stmt = $dbh->prepare('DELETE FROM Belongs WHERE Belongs.idList = ?');
+    $stmt->execute(array($idList));
+
+    //Items
+    $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idList = ?');
+    $stmt->execute(array($idList));
+
+    //Category
+    $stmt = $dbh->prepare('DELETE FROM Category WHERE Category.idList = ?');
+    $stmt->execute(array($idList));
+    //update All Tags
+
+    //List
+    $stmt = $dbh->prepare('DELETE FROM List WHERE List.idList = ?');
+    $stmt->execute(array($idList));
+  }
+
+  function NumberofLists($dbh){
+    $stmt = $dbh->prepare('SELECT Count(List.idList) as num FROM List');
+    $stmt->execute(array());
+    return $stmt->fetch()['num'];
   }
  ?>

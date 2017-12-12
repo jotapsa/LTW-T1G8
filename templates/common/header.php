@@ -26,6 +26,8 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
     <title><?php echo $title?></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/index_session.css" rel="stylesheet">
     <link href="css/forms.css" rel="stylesheet">

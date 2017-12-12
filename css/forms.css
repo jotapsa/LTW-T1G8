@@ -3,7 +3,7 @@
 
     display: flex;
     flex-flow: column nowrap;
-    height: 750px;
+    min-height: 650px;
 }
 
 form {

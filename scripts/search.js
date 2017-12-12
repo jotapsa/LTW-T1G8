@@ -33,12 +33,14 @@ function showHints(str) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+              if(this.responseText != -1){
                 var options = JSON.parse(this.responseText);
                 for(let i=0;i < options.length; i++){
                   var option = document.createElement('option');
                   option.value = options[i];
                   dataList.appendChild(option);
                 }
+              }
             }
         };
 
