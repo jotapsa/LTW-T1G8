@@ -25,6 +25,7 @@
                   <input type="text" id="editTitle<?=$todolist['idList']?>" class="editTitle" value="<?=$todolist['title']?>">
                   <i class="tagsButton" id="tagsList<?=$todolist['idList']?>">local_offer</i>
                   <i class="colorButton" id="colorList<?=$todolist['idList']?>">colorize</i>
+                  <input type="color" id="colorPick<?=$todolist['idList']?>" class="colorPick" style="display: none">
             <?}
             else { ?>
               <h1><a class="title" id="title<?=$todolist['idList']?>"><?=$todolist['title']?></a></h1>

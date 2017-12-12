@@ -14,7 +14,8 @@ add_item_confirm,
 privacy_buttons,
 color_buttons,
 tags_buttons,
-titles;
+titles,
+colorPickers;
 
 Init();
 
@@ -51,6 +52,9 @@ function Init(){
 
   titles = document.getElementsByClassName("editTitle");
   addEventListenerList(titles,editTitle,"keyup");
+
+  colorPickers = document.getElementsByClassName("colorPick");
+  addEventListenerList(colorPickers,changeColor,"change");
 }
 
 var n_lists=0;
@@ -357,16 +361,16 @@ function editColor(event){
   var id = this.id;
   id = id.substr(9);
 
-  var color_picket = document.createElement("input");
-  color_picket.setAttribute("type","color");
-  color_picket.setAttribute("id","colorPick"+id);
-  color_picket.setAttribute("class","colorPick");
-  this.parentElement.appendChild(color_picket);
-  this.remove();
+  var color_picket = document.getElementById("colorPick"+id);
+  color_picket.click();
 
   // var xmlhttp = new XMLHttpRequest();
   // xmlhttp.open("GET", "action_update_list.php?list=" + id + '&color=' + str, true);
   // xmlhttp.send();
+}
+
+function changeColor(event){
+  console.log(this.value);
 }
 
 function editTitle(event){
