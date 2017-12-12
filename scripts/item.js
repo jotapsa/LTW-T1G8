@@ -290,7 +290,7 @@ function addList(event){
           footer.appendChild(date);
 
           section.insertBefore(newList, section.childNodes[0]);
-
+          edit.focus();
           Init();
         }
       }
@@ -354,7 +354,19 @@ function manageTags(event){
 }
 
 function editColor(event){
+  var id = this.id;
+  id = id.substr(9);
 
+  var color_picket = document.createElement("input");
+  color_picket.setAttribute("type","color");
+  color_picket.setAttribute("id","colorPick"+id);
+  color_picket.setAttribute("class","colorPick");
+  this.parentElement.appendChild(color_picket);
+  this.remove();
+
+  // var xmlhttp = new XMLHttpRequest();
+  // xmlhttp.open("GET", "action_update_list.php?list=" + id + '&color=' + str, true);
+  // xmlhttp.send();
 }
 
 function editTitle(event){

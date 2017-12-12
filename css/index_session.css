@@ -70,12 +70,12 @@
     border-top-right-radius: 5px;
 }
 
-.list-unchecked{
-  background-color: blue;
-}
-
 .list-checked{
   background-color: green;
+}
+
+.colorPick{
+
 }
 
 #to-do-lists > article > header > h1{

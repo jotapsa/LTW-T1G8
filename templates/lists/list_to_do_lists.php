@@ -8,7 +8,7 @@
       <header class="list-checked">
     <?php }
       else{ ?>
-      <header class="list-unchecked">
+      <header class="list-unchecked" style="background-color: #<?=$todolist['color']?>">
     <?php }
         if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
           if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {?>
@@ -21,16 +21,14 @@
             <i class="privacyButton" id="privacyList<?=$todolist['idList']?>"><?=$privacy?></i>
         <?}
         }?>
-        <?php if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
-                if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {?>
+        <?php if(isset($_SESSION['username']) && $_SESSION['username'] != '' && ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])){?>
                   <input type="text" id="editTitle<?=$todolist['idList']?>" class="editTitle" value="<?=$todolist['title']?>">
                   <i class="tagsButton" id="tagsList<?=$todolist['idList']?>">local_offer</i>
                   <i class="colorButton" id="colorList<?=$todolist['idList']?>">colorize</i>
             <?}
             else { ?>
               <h1><a class="title" id="title<?=$todolist['idList']?>"><?=$todolist['title']?></a></h1>
-            <? }
-            }?>
+            <? }?>
 
       </header>
       <section class="items">

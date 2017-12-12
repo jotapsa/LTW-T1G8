@@ -29,7 +29,7 @@ CREATE TABLE List(
   idList    INTEGER   PRIMARY KEY AUTOINCREMENT,
   privacy   INTEGER   CHECK ((privacy = 0 OR privacy = 1) AND privacy IS NOT NULL),
   title     TEXT      NOT NULL,
-  colour    TEXT      NOT NULL,
+  color    TEXT      NOT NULL,
   checked   INTEGER   CHECK ((checked=0 OR checked=1) AND checked IS NOT NULL),
   editedDate    INTEGER NOT NULL
 );
