@@ -119,6 +119,11 @@
     $stmt->execute(array($privacy,$idList));
   }
 
+  function setTitleofList($dbh,$idList,$title){
+    $stmt = $dbh->prepare('UPDATE List SET title = ? WHERE List.idList = ?');
+    $stmt->execute(array($title,$idList));
+  }
+
   function addList($dbh,$idUser){
     //List
     $stmt = $dbh->prepare('INSERT INTO List VALUES(?,?,?,?,?,?)');

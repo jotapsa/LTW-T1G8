@@ -4,7 +4,17 @@ function addEventListenerList(list,method,eventType) {
       }
 }
 
-var items_uncheck,items_check,add_items,delete_items,delete_lists,add_list,privacy_buttons,tags_buttons,title_buttons;
+var items_uncheck,
+items_check,
+add_items,
+delete_items,
+delete_lists,
+add_list,
+add_item_confirm,
+privacy_buttons,
+color_buttons,
+tags_buttons,
+titles;
 
 Init();
 
@@ -27,17 +37,20 @@ function Init(){
   add_list = document.getElementsByClassName("addList");
   addEventListenerList(add_list,addList,"click");
 
-  var add_item_confirm = document.getElementsByClassName("addItemConfirm");
+  add_item_confirm = document.getElementsByClassName("addItemConfirm");
   addEventListenerList(add_item_confirm,addItem,"click");
 
-  var privacy_buttons = document.getElementsByClassName("privacyButton");
+  privacy_buttons = document.getElementsByClassName("privacyButton");
   addEventListenerList(privacy_buttons,changePrivacy,"click");
 
-  var color_buttons = document.getElementsByClassName("colorButton");
-  addEventListenerList(tags_buttons,editColor,"click");
+  color_buttons = document.getElementsByClassName("colorButton");
+  addEventListenerList(color_buttons,editColor,"click");
 
-  var tags_buttons = document.getElementsByClassName("tagsButton");
-  addEventListenerList(tags_buttons,manageTags);
+  tags_buttons = document.getElementsByClassName("tagsButton");
+  addEventListenerList(tags_buttons,manageTags,"click");
+
+  titles = document.getElementsByClassName("editTitle");
+  addEventListenerList(titles,editTitle,"keyup");
 }
 
 var n_lists=0;
@@ -345,5 +358,11 @@ function editColor(event){
 }
 
 function editTitle(event){
+  var id = this.id;
+  id = id.substr(9);
+  str = this.value;
 
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", "action_update_list.php?list=" + id + '&title=' + str, true);
+  xmlhttp.send();
 }
