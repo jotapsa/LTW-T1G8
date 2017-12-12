@@ -368,10 +368,6 @@ function changePrivacy(event){
   xmlhttp.send();
 }
 
-function manageTags(event){
-
-}
-
 function editColor(event){
   var id = this.id;
   id = id.substr(9);
@@ -401,4 +397,66 @@ function editTitle(event){
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET", "action_update_list.php?list=" + id + '&title=' + str, true);
   xmlhttp.send();
+}
+
+function manageTags(event){
+  var idList = this.id;
+  idList = idList.substr(8);
+
+  var table_items = document.getElementById("table-items"+idList).childNodes[1].childNodes;
+  var n_items = table_items.length;
+
+  var modal = document.createElement("div");
+  modal.setAttribute("id","tags"+idList);
+  modal.setAttribute("class","tagsPopup");
+
+  var content = document.createElement("div");
+  content.setAttribute("class","tagsContent");
+  modal.appendChild(content);
+  // -------------header--------------------
+  var header = document.createElement("div");
+  header.setAttribute("class","tagsHeader");
+  content.appendChild(header);
+
+  var close_button = document.createElement("span");
+  close_button.setAttribute("class","tagsClose");
+  close_button.innerHTML = '&times;';
+  header.appendChild(close_button);
+
+  var title = document.createElement("h2");
+  title.setAttribute("class","tagsTitle");
+  title.innerHTML = 'Tags';
+  header.appendChild(title);
+
+  // -------------body--------------------
+  var body = document.createElement("div");
+  body.setAttribute("class","tagsBody");
+  content.appendChild(body);
+
+  var table
+
+  for(let i=0;i< n_tags-2;i+=2){
+    var
+  }
+
+
+
+//
+//   <div id="tags" class="tagsPopup">
+//
+//   <!-- Modal content -->
+//   <div class="modal-content">
+//     <div class="modal-header">
+//       <span class="close"></span>
+//       <h2>Modal Header</h2>
+//     </div>
+//     <div class="modal-body">
+//       <p>Some text in the Modal Body</p>
+//       <p>Some other text...</p>
+//     </div>
+//   </div>
+//
+// </div>
+
+
 }

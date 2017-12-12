@@ -38,7 +38,7 @@
 
       </header>
       <section class="items">
-        <table>
+        <table id="table-items<?=$todolist['idList']?>">
         <?php foreach ($items as $item) { ?>
           <tr>
             <?php if($item['checked']){ ?>
@@ -65,7 +65,7 @@
       </section>
       <footer>
         <?php foreach($tags as $tag){ ?>
-        <span class="tags"><a href="search.php?tag=<?=$tag['name']?>">#<?=$tag['name']?></a></span>
+        <span class="tags" id="tag<?=$tag['idTag']?>"><a href="search.php?tag=<?=$tag['name']?>">#<?=$tag['name']?></a></span>
         <?php } ?>
         <span id="date<?=$todolist['idList']?>"class="date"><?php echo gmdate('d/m/y',$todolist['editedDate'])?></span>
       </footer>

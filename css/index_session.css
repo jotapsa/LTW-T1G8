@@ -311,6 +311,7 @@
 
 .tags a{
     color: blue;
+    text-decoration-line: none;
 }
 
 

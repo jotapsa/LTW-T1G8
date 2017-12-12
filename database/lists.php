@@ -12,7 +12,7 @@
   }
 
   function TagsofList($dbh,$listID){
-    $stmt = $dbh->prepare('SELECT Tag.name FROM List INNER JOIN Category ON ((List.idList = ?) AND (List.idList = Category.idList)) INNER JOIN Tag ON (Tag.idTag = Category.idTag)');
+    $stmt = $dbh->prepare('SELECT Tag.* FROM List INNER JOIN Category ON ((List.idList = ?) AND (List.idList = Category.idList)) INNER JOIN Tag ON (Tag.idTag = Category.idTag)');
     $stmt->execute(array($listID));
     return $stmt->fetchAll();
   }
