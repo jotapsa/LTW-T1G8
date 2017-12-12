@@ -181,12 +181,12 @@
   font-size: 40px;
 }
 
-.titleButton{
+.colorButton{
   float:right;
   cursor: pointer;
   border-radius: 100%;
   font-size: 35px;
-  color: silver;
+  color: cyan;
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
@@ -199,8 +199,17 @@
   direction: ltr;
 }
 
-.titleButton:hover{
+.colorButton:hover{
   font-size: 40px;
+}
+
+.editTitle{
+  text-align: center;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  color:white;
+  font-size: 32px;
 }
 
 #nav{

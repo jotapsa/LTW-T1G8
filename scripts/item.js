@@ -1,10 +1,10 @@
-function addEventListenerList(list,method) {
+function addEventListenerList(list,method,eventType) {
       for (let i = 0;i < list.length; i++) {
-        list[i].addEventListener("click", method);
+        list[i].addEventListener(eventType, method);
       }
 }
 
-var items_uncheck,items_check,add_items,delete_items,delete_lists,add_list,privacy_buttons;
+var items_uncheck,items_check,add_items,delete_items,delete_lists,add_list,privacy_buttons,tags_buttons,title_buttons;
 
 Init();
 
@@ -12,26 +12,32 @@ function Init(){
 
   items_uncheck = document.getElementsByClassName("item-uncheck");
   items_check = document.getElementsByClassName("item-check");
-  addEventListenerList(items_uncheck,checkItem);
-  addEventListenerList(items_check,checkItem);
+  addEventListenerList(items_uncheck,checkItem,"click");
+  addEventListenerList(items_check,checkItem,"click");
 
   add_items = document.getElementsByClassName("addItem");
-  addEventListenerList(add_items,addItemInput);
+  addEventListenerList(add_items,addItemInput,"click");
 
   delete_items = document.getElementsByClassName("deleteItem");
-  addEventListenerList(delete_items,deleteItem);
+  addEventListenerList(delete_items,deleteItem,"click");
 
   delete_lists = document.getElementsByClassName("deleteButton");
-  addEventListenerList(delete_lists,deleteList);
+  addEventListenerList(delete_lists,deleteList,"click");
 
   add_list = document.getElementsByClassName("addList");
-  addEventListenerList(add_list,addList);
+  addEventListenerList(add_list,addList,"click");
 
   var add_item_confirm = document.getElementsByClassName("addItemConfirm");
-  addEventListenerList(add_item_confirm,addItem);
+  addEventListenerList(add_item_confirm,addItem,"click");
 
   var privacy_buttons = document.getElementsByClassName("privacyButton");
-  addEventListenerList(privacy_buttons,changePrivacy);
+  addEventListenerList(privacy_buttons,changePrivacy,"click");
+
+  var color_buttons = document.getElementsByClassName("colorButton");
+  addEventListenerList(tags_buttons,editColor,"click");
+
+  var tags_buttons = document.getElementsByClassName("tagsButton");
+  addEventListenerList(tags_buttons,manageTags);
 }
 
 var n_lists=0;
@@ -226,11 +232,12 @@ function addList(event){
           privacy_button.innerHTML = 'lock_open';
           header.appendChild(privacy_button);
 
-          var title = document.createElement("h1");
-          var title_a = document.createElement("a");
-          title_a.innerHTML = 'Title'
-          title.appendChild(title_a);
-          header.appendChild(title);
+          var edit = document.createElement("input");
+          edit.setAttribute("type","text");
+          edit.setAttribute("id","editTitle"+id);
+          edit.setAttribute("class","editTitle");
+          edit.setAttribute("value","Title");
+          header.appendChild(edit);
 
           var tags_button = document.createElement("i");
           tags_button.setAttribute("class","tagsButton");
@@ -238,11 +245,11 @@ function addList(event){
           tags_button.innerHTML = 'lock_open';
           header.appendChild(tags_button);
 
-          var title_button = document.createElement("i");
-          title_button.setAttribute("class","titleButton");
-          title_button.setAttribute("id","titleList"+id);
-          title_button.innerHTML = 'title';
-          header.appendChild(title_button);
+          var color_button = document.createElement("i");
+          color_button.setAttribute("class","colorButton");
+          color_button.setAttribute("id","colorList"+id);
+          color_button.innerHTML = 'colorize';
+          header.appendChild(color_button);
 
           var section_items = document.createElement("section");
           section_items.setAttribute("class","items");
@@ -327,4 +334,16 @@ function changePrivacy(event){
 
   xmlhttp.open("GET", "action_update_list.php?list=" + id + '&privacy=' + privacy, true);
   xmlhttp.send();
+}
+
+function manageTags(event){
+
+}
+
+function editColor(event){
+
+}
+
+function editTitle(event){
+
 }
