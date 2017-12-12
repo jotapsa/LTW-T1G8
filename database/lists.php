@@ -127,7 +127,7 @@
   function addList($dbh,$idUser){
     //List
     $stmt = $dbh->prepare('INSERT INTO List VALUES(?,?,?,?,?,?)');
-    $stmt->execute(array(NULL,0,'Title','ff0000',0,time()));
+    $stmt->execute(array(NULL,0,'Title','0000ff',0,time()));
 
     //Get List.id
     $stmt = $dbh->prepare('SELECT List.idList as id FROM List ORDER BY List.idList DESC LIMIT 1');

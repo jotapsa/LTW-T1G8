@@ -235,6 +235,7 @@ function addList(event){
 
           var header = document.createElement("header");
           header.setAttribute("class","list-unchecked");
+          header.setAttribute("style","background-color: #0000ff");
           newList.appendChild(header);
 
           var del_button = document.createElement("i");
@@ -370,7 +371,10 @@ function editColor(event){
 }
 
 function changeColor(event){
-  console.log(this.value);
+  var id = this.id;
+  id = id.substr(9);
+
+  this.parentElement.setAttribute("style","background-color: "+this.value)
 }
 
 function editTitle(event){
