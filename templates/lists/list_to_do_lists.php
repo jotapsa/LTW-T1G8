@@ -2,8 +2,13 @@
 <?php foreach( $lists as $todolist) {
   $items = ItemsofList($dbh,$todolist['idList']);
   $tags = TagsofList($dbh,$todolist['idList']);
-  ?>
-  <article id="list<?=$todolist['idList']?>">
+
+  if(isset($_SESSION['username']) && $_SESSION['username'] != '' && ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])){?>
+    <article id="list<?=$todolist['idList']?>" class="editable">
+  <?}
+  else{?>
+    <article id="list<?=$todolist['idList']?>">
+  <?}?>
     <?php if($todolist['checked']){ ?>
       <header class="list-checked">
     <?php }

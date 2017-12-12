@@ -24,10 +24,15 @@ tags_buttons,
 titles,
 colorPickers;
 
+function getListfromItem(item){
+  for(let i=0;i<5;i++)
+    item = item.parentElement;
+  return item.id.substr(4);
+}
+
 Init();
 
 function Init(){
-
   items_uncheck = document.getElementsByClassName("item-uncheck");
   items_check = document.getElementsByClassName("item-check");
   addEventListenerList(items_uncheck,checkItem,"click");
@@ -144,8 +149,7 @@ function checkItem(event){
   var id = this.id;
   id = id.substr(4);
 
-  var item = this.parentElement.parentElement.getElementsByClassName('addItem');
-  var idList = item[0].parentElement.id.substr(7);
+  var idList = getListfromItem(this);
   var date = document.getElementById("date"+idList);
 
   var xmlhttp = new XMLHttpRequest();
@@ -198,8 +202,7 @@ function deleteItem(event){
   var id = this.id;
   id = id.substr(6);
 
-  var item = this.parentElement.parentElement.getElementsByClassName('addItem');
-  var idList = item[0].parentElement.id.substr(7);
+  var idList = getListfromItem(this);
   var date = document.getElementById("date"+idList);
 
   var xmlhttp = new XMLHttpRequest();
