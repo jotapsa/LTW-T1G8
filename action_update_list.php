@@ -9,6 +9,11 @@
       updateModified($dbh,$_GET["list"]);
       echo 0;
     }
+    elseif (isset($_GET["title"]) && $_GET["title"] != '' && isset($_GET["list"]) && $_GET["list"] != '') {
+      setTitleofList($dbh,$_GET["list"],$_GET["title"]);
+      updateModified($dbh,$_GET["list"]);
+      echo 0;
+    }
   }
   else {
     echo -1;
