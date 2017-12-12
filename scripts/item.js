@@ -1,25 +1,44 @@
-function addEventListenerList(list,method) {
+function addEventListenerList(list,method,eventType) {
       for (let i = 0;i < list.length; i++) {
-        list[i].addEventListener("click", method);
+        list[i].addEventListener(eventType, method);
       }
 }
 
-var items_uncheck = document.getElementsByClassName("item-uncheck");
-var items_check = document.getElementsByClassName("item-check");
-addEventListenerList(items_uncheck,checkItem);
-addEventListenerList(items_check,checkItem);
+var items_uncheck,items_check,add_items,delete_items,delete_lists,add_list,privacy_buttons,tags_buttons,title_buttons;
 
-var add_items = document.getElementsByClassName("addItem");
-addEventListenerList(add_items,addItemInput);
+Init();
 
-var delete_items = document.getElementsByClassName("deleteItem");
-addEventListenerList(delete_items,deleteItem);
+function Init(){
 
-var delete_lists = document.getElementsByClassName("deleteButton");
-addEventListenerList(delete_lists,deleteList);
+  items_uncheck = document.getElementsByClassName("item-uncheck");
+  items_check = document.getElementsByClassName("item-check");
+  addEventListenerList(items_uncheck,checkItem,"click");
+  addEventListenerList(items_check,checkItem,"click");
 
-var add_list = document.getElementsByClassName("addList");
-addEventListenerList(add_list,addList);
+  add_items = document.getElementsByClassName("addItem");
+  addEventListenerList(add_items,addItemInput,"click");
+
+  delete_items = document.getElementsByClassName("deleteItem");
+  addEventListenerList(delete_items,deleteItem,"click");
+
+  delete_lists = document.getElementsByClassName("deleteButton");
+  addEventListenerList(delete_lists,deleteList,"click");
+
+  add_list = document.getElementsByClassName("addList");
+  addEventListenerList(add_list,addList,"click");
+
+  var add_item_confirm = document.getElementsByClassName("addItemConfirm");
+  addEventListenerList(add_item_confirm,addItem,"click");
+
+  var privacy_buttons = document.getElementsByClassName("privacyButton");
+  addEventListenerList(privacy_buttons,changePrivacy,"click");
+
+  var color_buttons = document.getElementsByClassName("colorButton");
+  addEventListenerList(tags_buttons,editColor,"click");
+
+  var tags_buttons = document.getElementsByClassName("tagsButton");
+  addEventListenerList(tags_buttons,manageTags);
+}
 
 var n_lists=0;
 var add_lists=0;
@@ -41,6 +60,7 @@ function addItem(event){
   id = id.substr(3);
 
   var input = document.getElementById('input'+id);
+  var table = document.getElementById('addItem'+id).parentElement;
   str = input.value;
 
   if(str.length == 0){
@@ -56,10 +76,26 @@ function addItem(event){
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           if(this.responseText != -1){
+            var newID = this.responseText;
             var item = document.createElement("tr");
-            
+
+            var item_info = document.createElement("td");
+            item_info.setAttribute("class","item-uncheck");
+            item_info.setAttribute("id","item"+newID);
+            item_info.innerHTML = str;
+            item.appendChild(item_info);
+
+            var delete_item = document.createElement("td");
+            delete_item.setAttribute("class","deleteItem");
+            delete_item.setAttribute("id","delete"+newID);
+            delete_item.innerHTML = 'X';
+            item.appendChild(delete_item);
+
+            table.insertBefore(item, table.childNodes[table.childNodes.length-2]);
+
             updateDate(date[0]);
-            $('#addItem'+id+ ' .addItem').css('display', 'grid');
+            $('#addItem'+id+ ' .addItem').css('display', 'table-cell');
+            Init();
           }
         }
     };
@@ -121,14 +157,13 @@ function addItemInput(event){
   add_confirm.innerHTML = '✓';
   add.appendChild(add_confirm);
 
-  var add_item_confirm = document.getElementsByClassName("addItemConfirm");
-  addEventListenerList(add_item_confirm,addItem);
-
   var inputText = document.createElement("input");
   inputText.setAttribute('type','text');
   inputText.setAttribute('name','newItem');
   inputText.setAttribute('id','input'+id);
   add.insertBefore(inputText, add.childNodes[1]);
+
+  Init();
 
   inputText.focus();
 }
@@ -171,64 +206,85 @@ function getNumberLists(){
 }
 
 function addList(event){
-  add_lists++;
-  var id = parseInt(n_lists)+ parseInt(add_lists);
-  console.log(id);
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          var id = this.responseText;
+          var section = document.getElementById("to-do-lists");
 
-  var section = document.getElementById("to-do-lists");
+          var newList = document.createElement("article");
+          newList.setAttribute("id","list"+id);
 
-  var newList = document.createElement("article");
-  newList.setAttribute("id","list"+id);
+          var header = document.createElement("header");
+          header.setAttribute("class","list-unchecked");
+          newList.appendChild(header);
 
-  var header = document.createElement("header");
-  header.setAttribute("class","list-unchecked");
-  newList.appendChild(header);
+          var del_button = document.createElement("i");
+          del_button.setAttribute("class","deleteButton");
+          del_button.setAttribute("id","deleteList"+id);
+          del_button.innerHTML = 'delete';
+          header.appendChild(del_button);
 
-  var del_button = document.createElement("i");
-  del_button.setAttribute("class","deleteButton");
-  del_button.setAttribute("id","deleteList"+id);
-  del_button.innerHTML = 'delete';
-  header.appendChild(del_button);
+          var privacy_button = document.createElement("i");
+          privacy_button.setAttribute("class","privacyButton");
+          privacy_button.setAttribute("id","privacyList"+id);
+          privacy_button.innerHTML = 'lock_open';
+          header.appendChild(privacy_button);
 
-  var title = document.createElement("h1");
-  var title_a = document.createElement("a");
-  title_a.innerHTML = 'Título'
-  title.appendChild(title_a);
-  header.appendChild(title);
+          var edit = document.createElement("input");
+          edit.setAttribute("type","text");
+          edit.setAttribute("id","editTitle"+id);
+          edit.setAttribute("class","editTitle");
+          edit.setAttribute("value","Title");
+          header.appendChild(edit);
 
-  var section_items = document.createElement("section");
-  section_items.setAttribute("class","items");
-  newList.appendChild(section_items);
+          var tags_button = document.createElement("i");
+          tags_button.setAttribute("class","tagsButton");
+          tags_button.setAttribute("id","tagsList"+id);
+          tags_button.innerHTML = 'lock_open';
+          header.appendChild(tags_button);
 
-  var table = document.createElement("table");
-  section_items.appendChild(table);
+          var color_button = document.createElement("i");
+          color_button.setAttribute("class","colorButton");
+          color_button.setAttribute("id","colorList"+id);
+          color_button.innerHTML = 'colorize';
+          header.appendChild(color_button);
 
-  var add = document.createElement("tr");
-  add.setAttribute("id","addItem"+id);
-  table.appendChild(add);
+          var section_items = document.createElement("section");
+          section_items.setAttribute("class","items");
+          newList.appendChild(section_items);
 
-  var add_button = document.createElement("td");
-  add_button.setAttribute("class","addItem");
-  add_button.innerHTML = '+';
-  add.appendChild(add_button);
+          var table = document.createElement("table");
+          section_items.appendChild(table);
 
-  section.appendChild(newList);
-  console.log(newList);
+          var add = document.createElement("tr");
+          add.setAttribute("id","addItem"+id);
+          table.appendChild(add);
 
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function() {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       if(this.responseText != -1){
-  //         var todolist = document.getElementById('list' + id);
-  //         todolist.remove();
-  //       }
-  //     }
-  // };
-  //
-  // xmlhttp.open("GET", "action_delete_list.php?list=" + id, true);
-  // xmlhttp.send();
+          var add_button = document.createElement("td");
+          add_button.setAttribute("class","addItem");
+          add_button.innerHTML = '+';
+          add.appendChild(add_button);
 
+          var footer = document.createElement("footer");
+          section_items.appendChild(footer);
 
+          var date = document.createElement("span");
+          date.setAttribute("class","date");
+          date.setAttribute("id",'date'+id);
+          updateDate(date);
+          footer.appendChild(date);
+
+          section.insertBefore(newList, section.childNodes[0]);
+
+          Init();
+        }
+      }
+  };
+
+  xmlhttp.open("GET", "action_add_list.php", true);
+  xmlhttp.send();
 }
 
 function deleteList(event){
@@ -247,4 +303,47 @@ function deleteList(event){
 
   xmlhttp.open("GET", "action_delete_list.php?list=" + id, true);
   xmlhttp.send();
+}
+
+function changePrivacy(event){
+  var id = this.id;
+  id = id.substr(11);
+  var privacy;
+
+  var text = this.innerHTML;
+  var self = this;
+  if(text == 'lock')
+    privacy = 0;
+  else {
+    privacy = 1;
+  }
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          if(privacy){
+            self.innerHTML = 'lock';
+          }
+          else{
+            self.innerHTML = 'lock_open';
+          }
+        }
+      }
+  };
+
+  xmlhttp.open("GET", "action_update_list.php?list=" + id + '&privacy=' + privacy, true);
+  xmlhttp.send();
+}
+
+function manageTags(event){
+
+}
+
+function editColor(event){
+
+}
+
+function editTitle(event){
+
 }

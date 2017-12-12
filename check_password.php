@@ -12,7 +12,7 @@
       echo -1;
       return;
     }
-    
+
     if(CheckUserPassword($dbh,$_SESSION['username'],$password)) {
       echo 0;
     }

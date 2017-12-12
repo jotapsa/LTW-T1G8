@@ -92,11 +92,10 @@
 
 .deleteButton{
   position: absolute;
-  background-color: red;
   cursor: pointer;
   border-radius: 100%;
   font-size:35px;
-
+  color:red;
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
@@ -107,7 +106,6 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  box-shadow: 1px 1px 2px #999;
 }
 
 .deleteButton:hover{
@@ -131,24 +129,99 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  box-shadow: 1px 1px 2px #999;
+  box-shadow: 2px 2px 2px #999;
+}
+
+.privacyButton{
+  float: right;
+  cursor: pointer;
+  border-radius: 100%;
+  font-size:35px;
+  color:gold;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+}
+
+.privacyButton:hover{
+  font-size: 40px;
 }
 
 .addList:hover{
   font-size: 40px;
 }
 
+.tagsButton{
+  cursor: pointer;
+  border-radius: 100%;
+  font-size: 35px;
+  color: orange;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 0;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+}
+
+.tagsButton:hover{
+  font-size: 40px;
+}
+
+.colorButton{
+  float:right;
+  cursor: pointer;
+  border-radius: 100%;
+  font-size: 35px;
+  color: cyan;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 0;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+}
+
+.colorButton:hover{
+  font-size: 40px;
+}
+
+.editTitle{
+  text-align: center;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  color:white;
+  font-size: 32px;
+}
+
 #nav{
   background-color: #000000;
 }
 
-/* Items */
+/* navigation */
 
 .items table{
     grid-area: table;
     width: 100%;
     border-collapse: collapse;
 }
+
 
 .items td {
     text-align: center;
@@ -181,7 +254,6 @@
 
 .deleteItem:hover{
   box-shadow: 2px 2px 2px #999;
-  font-weight: 800;
 }
 
 .addItem{
@@ -213,10 +285,10 @@
 /* Footer */
 
 #to-do-lists footer{
-    grid-area: footer;
-
     background-color: #f00;
+    height: auto;
     padding: 0.5em;
+    grid-area: footer;
 
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;

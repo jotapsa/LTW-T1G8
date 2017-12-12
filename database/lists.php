@@ -90,9 +90,9 @@
     $stmt = $dbh->prepare('INSERT INTO Item VALUES(NULL,?,0,?)');
     $stmt->execute(array($info,$idList));
 
-    $stmt = $dbh->prepare('SELECT COUNT(Item.idItem) as num FROM Item');
+    $stmt = $dbh->prepare('SELECT Item.idItem as id FROM Item ORDER BY Item.idItem DESC LIMIT 1');
     $stmt->execute(array());
-    echo $stmt->fetch()['num'];
+    echo $stmt->fetch()['id'];
 
     updateList($dbh,$idList);
   }
@@ -114,6 +114,28 @@
     return $stmt->fetch() !== false;
   }
 
+  function setPrivacyofList($dbh,$idList,$privacy){
+    $stmt = $dbh->prepare('UPDATE List SET privacy = ? WHERE List.idList = ?');
+    $stmt->execute(array($privacy,$idList));
+  }
+
+  function addList($dbh,$idUser){
+    //List
+    $stmt = $dbh->prepare('INSERT INTO List VALUES(?,?,?,?,?,?)');
+    $stmt->execute(array(NULL,0,'Title','ff0000',0,time()));
+
+    //Get List.id
+    $stmt = $dbh->prepare('SELECT List.idList as id FROM List ORDER BY List.idList DESC LIMIT 1');
+    $stmt->execute(array());
+    $idList = $stmt->fetch()['id'];
+
+    //Belongs
+    $stmt = $dbh->prepare('INSERT INTO Belongs VALUES(?,?)');
+    $stmt->execute(array($idList,$idUser));
+
+    echo $idList;
+  }
+
   function deleteList($dbh,$idList){
     //Belongs
     $stmt = $dbh->prepare('DELETE FROM Belongs WHERE Belongs.idList = ?');
@@ -126,7 +148,7 @@
     //Category
     $stmt = $dbh->prepare('DELETE FROM Category WHERE Category.idList = ?');
     $stmt->execute(array($idList));
-    //update All Tags
+    //UPDATE All Tags
 
     //List
     $stmt = $dbh->prepare('DELETE FROM List WHERE List.idList = ?');

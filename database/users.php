@@ -17,6 +17,12 @@
     return $stmt->fetch();
   }
 
+  function getUserID($dbh,$username){
+    $stmt = $dbh->prepare('SELECT User.idUser as id FROM User WHERE User.username = ?');
+    $stmt->execute(array($username));
+    return $stmt->fetch()['id'];
+  }
+
   function RegisterUser($dbh,$username,$password,$birthday,$registerDate,$gender,$nickname,$email,$path){
     $stmt = $dbh->prepare('INSERT INTO User VALUES (?,?,?,?,?,?,?,?,?)');
     $stmt->execute(array(NULL,$username,hash('sha256',$password),$birthday,$registerDate,$gender,$nickname,$email,$path));
