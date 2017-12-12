@@ -8,7 +8,7 @@
       <header class="list-checked">
     <?php }
       else{ ?>
-      <header class="list-unchecked" style="background-color: #<?=$todolist['color']?>">
+      <header class="list-unchecked" style="background-color: <?=$todolist['color']?>">
     <?php }
         if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
           if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {?>

@@ -14,6 +14,11 @@
       updateModified($dbh,$_GET["list"]);
       echo 0;
     }
+    elseif (isset($_GET["color"]) && $_GET["color"] != '' && isset($_GET["list"]) && $_GET["list"] != '') {
+      setColorofList($dbh,$_GET["list"],$_GET["color"]);
+      updateModified($dbh,$_GET["list"]);
+      echo 0;
+    }
   }
   else {
     echo -1;

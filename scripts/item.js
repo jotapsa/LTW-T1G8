@@ -4,6 +4,13 @@ function addEventListenerList(list,method,eventType) {
       }
 }
 
+function addEventListenerColor(list,method,eventType) {
+      for (let i = 0;i < list.length; i++) {
+        list[i].addEventListener(eventType, method,false);
+        list[i].select();
+      }
+}
+
 var items_uncheck,
 items_check,
 add_items,
@@ -54,7 +61,7 @@ function Init(){
   addEventListenerList(titles,editTitle,"keyup");
 
   colorPickers = document.getElementsByClassName("colorPick");
-  addEventListenerList(colorPickers,changeColor,"change");
+  addEventListenerColor(colorPickers,changeColor,"input");
 }
 
 var n_lists=0;
@@ -84,7 +91,7 @@ function addItem(event){
     return;
   }
   else {
-    var date = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("date");
+    var date = document.getElementById("date"+id);
 
     input.remove();
     this.remove();
@@ -110,7 +117,8 @@ function addItem(event){
 
             table.insertBefore(item, table.childNodes[table.childNodes.length-2]);
 
-            updateDate(date[0]);
+            updateDate(date);
+            console.log('aqui');
             $('#addItem'+id+ ' .addItem').css('display', 'table-cell');
             Init();
           }
@@ -136,7 +144,9 @@ function checkItem(event){
   var id = this.id;
   id = id.substr(4);
 
-  var date = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("date");
+  var item = this.parentElement.parentElement.getElementsByClassName('addItem');
+  var idList = item[0].parentElement.id.substr(7);
+  var date = document.getElementById("date"+idList);
 
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -150,7 +160,7 @@ function checkItem(event){
             this.className = 'item-uncheck';
             $('#item'+id).css('background-color', 'white');
           }
-          updateDate(date[0]);
+          updateDate(date);
         }
       }
   };
@@ -162,7 +172,6 @@ function checkItem(event){
 function addItemInput(event){
   var id = this.parentElement.id;
   id = id.substr(7);
-  console.log("addItemInput -> " + id);
 
   $('#addItem'+id+ ' .addItem').css('display', 'none');
 
@@ -189,7 +198,9 @@ function deleteItem(event){
   var id = this.id;
   id = id.substr(6);
 
-  var date = this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("date");
+  var item = this.parentElement.parentElement.getElementsByClassName('addItem');
+  var idList = item[0].parentElement.id.substr(7);
+  var date = document.getElementById("date"+idList);
 
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -197,7 +208,7 @@ function deleteItem(event){
         if(this.responseText != -1){
           var parent = document.getElementById('item' + id).parentElement;
           parent.remove();
-          updateDate(date[0]);
+          updateDate(date);
         }
       }
   };
@@ -260,7 +271,7 @@ function addList(event){
           var tags_button = document.createElement("i");
           tags_button.setAttribute("class","tagsButton");
           tags_button.setAttribute("id","tagsList"+id);
-          tags_button.innerHTML = 'lock_open';
+          tags_button.innerHTML = 'local_offer';
           header.appendChild(tags_button);
 
           var color_button = document.createElement("i");
@@ -364,17 +375,19 @@ function editColor(event){
 
   var color_picket = document.getElementById("colorPick"+id);
   color_picket.click();
-
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.open("GET", "action_update_list.php?list=" + id + '&color=' + str, true);
-  // xmlhttp.send();
 }
 
 function changeColor(event){
   var id = this.id;
   id = id.substr(9);
 
-  this.parentElement.setAttribute("style","background-color: "+this.value)
+  var color = event.target.value;
+  color = color.substr(1);
+  this.parentElement.setAttribute("style","background-color: " + color);
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", "action_update_list.php?list=" + id + '&color=' + color, true);
+  xmlhttp.send();
 }
 
 function editTitle(event){
