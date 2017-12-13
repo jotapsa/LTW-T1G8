@@ -1,3 +1,4 @@
+/*
 SELECT List.* FROM List,
   (SELECT List.idList as id
         FROM List INNER JOIN Category
@@ -22,3 +23,22 @@ SELECT List.* FROM List,
   WHERE (List.idList = sessionUser.id OR List.idList = notUser.id)
   GROUP BY List.idList
   ORDER BY List.idList ASC;
+  */
+
+
+
+  CREATE TRIGGER IF NOT EXISTS LIST_CHECKED
+  AFTER UPDATE ON Item
+  FOR EACH ROW --Already default
+  WHEN ((new.checked = 1 AND old.checked = 0) AND
+  (SELECT count(Item.idItem) FROM List
+    INNER JOIN Item
+    ON ((new.idList = List.idList) AND (Item.idList = List.idList) AND (Item.checked = 1))) =
+    (SELECT count(Item.idItem) FROM List
+    INNER JOIN Item
+    ON ((new.idList = List.idList) AND (Item.idList = List.idList))))
+  BEGIN
+    UPDATE List
+    SET checked = 1
+    WHERE (idList = new.idList);
+  END;
