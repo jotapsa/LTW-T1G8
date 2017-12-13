@@ -61,4 +61,10 @@
     $stmt = $dbh->prepare('UPDATE User set username=?,birthday=?,gender=?,nickname=?,email=?,image=? where User.idUser=?');
     $stmt->execute(array($username,$birthday,$gender,$nickname,$email,$path,$idUser));
   }
+
+  function getUserofList($dbh,$idList){
+    $stmt = $dbh->prepare('SELECT User.* FROM User INNER JOIN Belongs ON (User.idUser = Belongs.idUser) INNER JOIN List ON (Belongs.idList = List.idList AND List.idList=?)');
+    $stmt->execute(array($idList));
+    return $stmt->fetch();
+  }
  ?>

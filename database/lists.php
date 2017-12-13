@@ -156,10 +156,6 @@
     $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idList = ?');
     $stmt->execute(array($idList));
 
-    // //Category
-    // $stmt = $dbh->prepare('DELETE FROM Category WHERE Category.idList = ?');
-    // $stmt->execute(array($idList));
-
     //Tags
     $tags = TagsofList($dbh,$idList);
     foreach( $tags as $tag) {
