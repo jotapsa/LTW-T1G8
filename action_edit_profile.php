@@ -24,9 +24,13 @@
     $path = 'images/'.$_POST['username'].'.'.$ext;
     move_uploaded_file($_FILES["picture"]['tmp_name'],$path);
   }
-  else{
-    $ext = substr($user['image'], strrpos($url, '.') + 1);
+  else if(isset($user['image'])){
+    $ext = array_pop(explode('.', $user['image']));
     $path = 'images/'.$_POST['username'].'.'.$ext;
+    rename($user['image'],$path);
+  }
+  else {
+    $path = NULL;
   }
 
   if($_POST['gender'] == 'male')

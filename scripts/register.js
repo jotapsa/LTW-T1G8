@@ -17,7 +17,12 @@ function validateUsername() {
     return;
   }
 
-  //detect space
+  if(str.indexOf(' ') >= 0){
+    hint[0].innerHTML = "Username must not have spaces!"
+    this.classList.remove('valid');
+    this.classList.add('invalid');
+    return;
+  }
 
   if (!/^\w{3,}$/.test(this.value)){
     hint[0].innerHTML = "Username must have at least 3 characters!"
