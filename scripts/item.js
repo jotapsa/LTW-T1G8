@@ -120,6 +120,7 @@ function addItem(event){
   id = id.substr(3);
 
   var input = document.getElementById('input'+id);
+  var add_item = document.getElementById('addItem'+id);
   var table = document.getElementById('addItem'+id).parentElement;
   str = input.value;
 
@@ -148,11 +149,11 @@ function addItem(event){
 
             var delete_item = document.createElement("td");
             delete_item.setAttribute("class","deleteItem");
-            delete_item.setAttribute("id","delete"+newID);
+            delete_item.setAttribute("id","deleteItem"+newID);
             delete_item.innerHTML = 'X';
             item.appendChild(delete_item);
 
-            table.insertBefore(item, table.childNodes[table.childNodes.length-2]);
+            table.insertBefore(item, add_item);
 
             updateDate(date);
             $('#addItem'+id+ ' .addItem').css('display', 'table-cell');
@@ -280,6 +281,7 @@ function addList(event){
 
           var newList = document.createElement("article");
           newList.setAttribute("id","list"+id);
+          newList.setAttribute("class","editable");
 
           var header = document.createElement("header");
           header.setAttribute("class","list-unchecked");
@@ -322,19 +324,25 @@ function addList(event){
           newList.appendChild(section_items);
 
           var table = document.createElement("table");
+          table.setAttribute("id","table-items"+id);
           section_items.appendChild(table);
+
+          var tbody = document.createElement("tbody");
+          table.appendChild(tbody);
 
           var add = document.createElement("tr");
           add.setAttribute("id","addItem"+id);
-          table.appendChild(add);
+          tbody.appendChild(add);
 
           var add_button = document.createElement("td");
           add_button.setAttribute("class","addItem");
+          add_button.setAttribute("colspan","2");
+          add_button.setAttribute("style","display: table-cell;");
           add_button.innerHTML = '+';
           add.appendChild(add_button);
 
           var footer = document.createElement("footer");
-          section_items.appendChild(footer);
+          newList.appendChild(footer);
 
           var date = document.createElement("span");
           date.setAttribute("class","date");
@@ -437,7 +445,7 @@ function manageTags(event){
   var idList = this.id;
   idList = idList.substr(8);
 
-  var tags = document.querySelector("#list"+idList+" footer").childNodes;
+  var tags = document.querySelector("#list"+idList+" footer").getElementsByClassName("tags");
   var n_tags = tags.length;
 
   var modal = document.createElement("div");
@@ -471,7 +479,7 @@ function manageTags(event){
   var table = document.createElement("table");
   body.appendChild(table);
 
-  for(let i=1;i< n_tags-2;i+=2){
+  for(let i=0;i< n_tags;i++){
     var tag = tags[i];
     var tag_id = tag.id.substr(3);
 
@@ -526,6 +534,7 @@ function addTag(event){
   idList = idList.substr(6);
 
   var table = this.parentElement.parentElement;
+  var add_button = this.parentElement;
   var self = this;
   var date = document.getElementById("date"+idList);
   var str = document.getElementById("newTag"+idList).value;
@@ -555,14 +564,15 @@ function addTag(event){
             tag_delete.innerHTML = 'X';
             tag_tr.appendChild(tag_delete);
 
-            table.insertBefore(tag_tr,table.childNodes[table.childNodes.length-2]);
-
+            table.insertBefore(tag_tr,add_button);
+            // -------------------------------------------------------------
             var footer = document.querySelector("#list"+idList+" footer");
+            var date = document.getElementById("date"+idList);
 
             var tag_span = document.createElement("span");
             tag_span.setAttribute("class","tags");
             tag_span.setAttribute("id",'tag'+idTag);
-            footer.insertBefore(tag_span,footer.childNodes[footer.childNodes.length-2]);
+            footer.insertBefore(tag_span,date);
 
             var tag_a = document.createElement("a");
             tag_a.setAttribute("href","search.php?tag="+str);

@@ -11,9 +11,9 @@
     return $stmt->fetchAll();
   }
 
-  function TagsofList($dbh,$listID){
+  function TagsofList($dbh,$idList){
     $stmt = $dbh->prepare('SELECT Tag.* FROM List INNER JOIN Category ON ((List.idList = ?) AND (List.idList = Category.idList)) INNER JOIN Tag ON (Tag.idTag = Category.idTag)');
-    $stmt->execute(array($listID));
+    $stmt->execute(array($idList));
     return $stmt->fetchAll();
   }
 
@@ -156,9 +156,15 @@
     $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idList = ?');
     $stmt->execute(array($idList));
 
-    //Category
-    $stmt = $dbh->prepare('DELETE FROM Category WHERE Category.idList = ?');
-    $stmt->execute(array($idList));
+    // //Category
+    // $stmt = $dbh->prepare('DELETE FROM Category WHERE Category.idList = ?');
+    // $stmt->execute(array($idList));
+
+    //Tags
+    $tags = TagsofList($dbh,$idList);
+    foreach( $tags as $tag) {
+      deleteTagfromList($dbh,$idList,$tag['idTag']);
+    }
 
     //List
     $stmt = $dbh->prepare('DELETE FROM List WHERE List.idList = ?');
