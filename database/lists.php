@@ -84,6 +84,10 @@
   function updateItem($dbh,$idItem,$checked){
     $stmt = $dbh->prepare('UPDATE Item SET checked = ? WHERE Item.idItem = ?');
     $stmt->execute(array($checked,$idItem));
+
+    $stmt = $dbh->prepare('SELECT List.checked FROM List INNER JOIN Item ON (List.idList = Item.idList AND Item.idItem=?)');
+    $stmt->execute(array($idItem));
+    echo $stmt->fetch()['checked'];
   }
 
   function addItem($dbh,$idList,$info){
@@ -220,5 +224,11 @@
       $stmt = $dbh->prepare('DELETE FROM Tag WHERE Tag.idTag = ?');
       $stmt->execute(array($idTag));
     }
+  }
+
+  function getColorofList($dbh,$idList){
+    $stmt = $dbh->prepare('SELECT List.color FROM List WHERE List.idList=?');
+    $stmt->execute(array($idList));
+    echo $stmt->fetch()['color'];
   }
  ?>

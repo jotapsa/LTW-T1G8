@@ -33,6 +33,10 @@
       insertTagtoList($dbh,$_GET["list"],$_GET["newTag"]);
       updateModified($dbh,$_GET["list"]);
     }
+    //Get Color of List
+    elseif (isset($_GET["getColor"]) && $_GET["getColor"] != '' && isset($_GET["list"]) && $_GET["list"] != '') {
+      getColorofList($dbh,$_GET["getColor"]);
+    }
     else {
       echo -1;
       return;

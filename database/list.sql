@@ -93,7 +93,7 @@ INSERT INTO Item VALUES(NULL,'Shaders',0,2);
 INSERT INTO Item VALUES(NULL,'Interface',1,2);
 
 INSERT INTO Item VALUES(NULL,'Pais',1,3);
-INSERT INTO Item VALUES(NULL,'Irmãos',1,3);
+INSERT INTO Item VALUES(NULL,'Irmãos',0,3);
 INSERT INTO Item VALUES(NULL,'Amigos',1,3);
 
 INSERT INTO Item VALUES(NULL,'AE Portucalense',1,4);
@@ -192,3 +192,20 @@ INSERT INTO Belongs VALUES(7,3);
 
 INSERT INTO Belongs VALUES(8,4);
 INSERT INTO Belongs VALUES(9,4);
+
+--Trigger to check List if all items are checked
+CREATE TRIGGER IF NOT EXISTS LIST_CHECKED
+AFTER UPDATE ON Item
+FOR EACH ROW --Already default
+WHEN ((new.checked = 1 AND old.checked = 0) AND
+(SELECT count(Item.idItem) FROM List
+  INNER JOIN Item
+  ON ((new.idList = List.idList) AND (Item.idList = List.idList) AND (Item.checked = 1))) =
+  (SELECT count(Item.idItem) FROM List
+  INNER JOIN Item
+  ON ((new.idList = List.idList) AND (Item.idList = List.idList))))
+BEGIN
+  UPDATE List
+  SET checked = 1
+  WHERE (idList = new.idList);
+END;

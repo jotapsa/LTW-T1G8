@@ -39,6 +39,19 @@ function getListfromItem(item){
   return item.id.substr(4);
 }
 
+function getColorofList(header,idList){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var color = this.responseText;
+        header.setAttribute("style","background-color: "+color+";");
+      }
+  };
+
+  xmlhttp.open("GET", "action_update_list.php?list=" + idList + '&getColor=' + idList, true);
+  xmlhttp.send();
+}
+
 Init();
 
 function Init(){
@@ -99,10 +112,6 @@ function close_Tags(){
   delete_tags = document.getElementsByClassName("deleteTag");
   removeEventListenerList(delete_tags,deleteTag,"click");
 }
-
-var n_lists=0;
-var add_lists=0;
-getNumberLists();
 
 function $(selector) {
   return document.querySelectorAll(selector);
@@ -182,13 +191,26 @@ function checkItem(event){
   id = id.substr(4);
 
   var idList = getListfromItem(this);
+  var header = document.getElementById("list"+idList).querySelector("header");
   var date = document.getElementById("date"+idList);
 
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         if(this.responseText != -1){
-          if(this.responseText == 1){
+          checkedList = this.responseText.charAt(0);
+          checkedItem = this.responseText.charAt(1);
+
+          if(checkedList == 1){
+            header.className = 'list-checked';
+            header.setAttribute("style","background-color: green;")
+          }
+          else{
+            header.className = 'list-unchecked';
+            getColorofList(header,idList);
+          }
+
+          if(checkedItem == 1){
             this.className = 'item-check';
             $('#item'+id).css('background-color', '#8db600');
           }
@@ -252,22 +274,6 @@ function deleteItem(event){
   };
 
   xmlhttp.open("GET", "action_delete_item.php?item=" + id, true);
-  xmlhttp.send();
-}
-
-function getNumberLists(){
-  var number;
-  var self = this;
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if(this.responseText != -1){
-          self.n_lists = this.responseText;
-        }
-      }
-  };
-
-  xmlhttp.open("GET", "action_update_list.php", false);
   xmlhttp.send();
 }
 
