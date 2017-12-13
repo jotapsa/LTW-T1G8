@@ -218,11 +218,14 @@ function addItemInput(event){
   add_confirm.innerHTML = '✓';
   add.appendChild(add_confirm);
 
+
+  var input_td = document.createElement("td");
   var inputText = document.createElement("input");
   inputText.setAttribute('type','text');
   inputText.setAttribute('name','newItem');
   inputText.setAttribute('id','input'+id);
-  add.insertBefore(inputText, add.childNodes[1]);
+  input_td.appendChild(inputText);
+  add.insertBefore(input_td, add.childNodes[1]);
 
   Init();
 
@@ -482,22 +485,23 @@ function manageTags(event){
 
     var tag_delete = document.createElement("td");
     tag_delete.setAttribute("class","deleteTag");
-    tag_delete.setAttribute("id","deleteTag");
+    tag_delete.setAttribute("id","deleteTag"+tag_id);
     tag_delete.innerHTML = 'X';
     tags_table.appendChild(tag_delete);
   }
   var add_table = document.createElement("tr");
   table.appendChild(add_table);
 
+  var input_td = document.createElement("td");
   var tag_input = document.createElement("input");
   tag_input.setAttribute("type","text");
   tag_input.setAttribute("name","newTag");
   tag_input.setAttribute("id","newTag"+idList);
-  add_table.appendChild(tag_input);
+  input_td.appendChild(tag_input);
+  add_table.appendChild(input_td);
 
   var tag_add = document.createElement("td");
   tag_add.setAttribute("class","addTag");
-  // tag_add.setAttribute("colspan","2");
   tag_add.innerHTML = '+';
   add_table.appendChild(tag_add);
 
@@ -513,7 +517,6 @@ function closeTags(event){
   var tagModal = this.parentElement.parentElement.parentElement;
   tagModal.setAttribute("style","display:none");
   tagModal.remove();
-
   close_Tags();
 }
 
@@ -523,4 +526,13 @@ function addTag(event){
 
 function deleteTag(event){
 
+}
+
+window.onclick = function(event) {
+  var tagModal = document.getElementsByClassName("tagsModal")[0];
+    if (event.target == tagModal) {
+        tagModal.style.display = "none";
+        tagModal.remove();
+        close_Tags();
+    }
 }
