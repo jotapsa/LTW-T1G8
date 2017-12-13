@@ -48,12 +48,17 @@
 
   function UpdatePassword($dbh,$username,$password){
     $stmt = $dbh->prepare('UPDATE User SET password = ? WHERE User.username = ?');
-    $stmt->execute(array($password,$username));
+    $stmt->execute(array(hash('sha256',$password),$username));
   }
 
   function emailExists($dbh,$email){
     $stmt = $dbh->prepare('SELECT * FROM User WHERE User.email = ?');
     $stmt->execute(array($email));
     return $stmt->fetch() !== false;
+  }
+
+  function updateUser($dbh,$idUser,$username,$birthday,$gender,$nickname,$email,$path){
+    $stmt = $dbh->prepare('UPDATE User set username=?,birthday=?,gender=?,nickname=?,email=?,image=? where User.idUser=?');
+    $stmt->execute(array($username,$birthday,$gender,$nickname,$email,$path,$idUser));
   }
  ?>

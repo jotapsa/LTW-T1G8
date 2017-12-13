@@ -9,6 +9,10 @@
       header('Location: index.php');
       exit();
     }
+    else{
+      header('Location: login.php');
+      exit();
+    }
   }
   else{
     header('Location: login.php');

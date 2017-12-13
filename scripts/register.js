@@ -4,10 +4,13 @@ username.addEventListener('keyup', validateUsername, false);
 let email = document.querySelector('#register input[name=email]');
 email.addEventListener('keyup', validateEmail, false);
 
+let register = document.querySelector('#register form');
+register.addEventListener('submit', validateRegister, false);
+
 function validateUsername() {
   str = this.value;
   hint = document.getElementsByClassName("hint");
-  
+
   if(str.length == 0){
     this.classList.remove('valid');
     this.classList.remove('invalid');
@@ -70,4 +73,14 @@ function validateEmail() {
 
   xmlhttp.open("GET", "check_email.php?email=" + str, true);
   xmlhttp.send();
+}
+
+function validateRegister(event) {
+  let inputs = this.querySelectorAll('input');
+  for (let i = 0; i < inputs.length; i++){
+    if (inputs[i].classList.contains('invalid'))
+     event.preventDefault();
+  }
+
+  window.alert('Registration Successful!');
 }

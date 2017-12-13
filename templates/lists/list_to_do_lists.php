@@ -67,7 +67,7 @@
         <?php foreach($tags as $tag){ ?>
         <span class="tags" id="tag<?=$tag['idTag']?>"><a href="search.php?tag=<?=$tag['name']?>">#<?=$tag['name']?></a></span>
         <?php } ?>
-        <span id="date<?=$todolist['idList']?>"class="date"><?php echo gmdate('d/m/y',$todolist['editedDate'])?></span>
+        <span id="date<?=$todolist['idList']?>"class="date"><?php echo gmdate('d/m/Y',$todolist['editedDate'])?></span>
       </footer>
     </article>
   <?php } ?>

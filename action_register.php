@@ -34,7 +34,7 @@
     $birthday = strtotime($_POST['birthday']);
 
     RegisterUser($dbh, $_POST['username'], $_POST['password'],$birthday,$registerDate,$gender,$_POST['nickname'], $_POST['email'],$path);
-    header('Location: index.php');
+    header('Location: login.php');
     exit();
   }
 ?>

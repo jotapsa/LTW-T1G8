@@ -9,13 +9,13 @@
 		</div>
 
 		<div id="name">
-			<h1><?php echo $user['nickname']?></h1>
-			<h2><?php echo $user['username']?></h2>
+			<h1><?=$user['nickname']?></h1>
+			<h2><?=$user['username']?></h2>
 		</div>
 
 		<div id="contactDetails">
 			<ul>
-				<li>e-mail: <a href="mailto:<?php echo $user['email']?>" target="_blank"><?php echo $user['email']?></a></li>
+				<li>e-mail: <a href="mailto:<?=$user['email']?>" target="_blank"><?=$user['email']?></a></li>
 				<li>Member Since: <a><?php echo gmdate('d/m/y',$user['registerDate'])?></a></li>
 			</ul>
 		</div>

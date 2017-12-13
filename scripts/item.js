@@ -129,6 +129,7 @@ function addItem(event){
   else {
     var date = document.getElementById("date"+id);
 
+    input.parentElement.remove();
     input.remove();
     this.remove();
 
@@ -154,7 +155,6 @@ function addItem(event){
             table.insertBefore(item, table.childNodes[table.childNodes.length-2]);
 
             updateDate(date);
-            console.log('aqui');
             $('#addItem'+id+ ' .addItem').css('display', 'table-cell');
             Init();
           }

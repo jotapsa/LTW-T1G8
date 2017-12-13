@@ -53,7 +53,7 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
             <div class="dropdown">
               <a class="dropbtn">My Profile</a>
               <div class="dropdown-content">
-                <a href="#">Edit Profile</a>
+                <a href="edit_profile.php">Edit Profile</a>
                 <a href="change_password.php">Change Password</a>
               </div>
             </div>

@@ -1,4 +1,4 @@
-#login,#register,#change_pwd{
+#login,#register,#change_pwd,#editProfile{
     background-image: linear-gradient(to top, white, #89CFF0);
 
     display: flex;
@@ -10,7 +10,6 @@ form {
     color: black;
     margin: 2em auto;
     width: 20em;
-    padding: 1em;
 }
 
 form .hint {
@@ -101,6 +100,8 @@ input {
 input[type=submit] {
   width: auto;
 
+  cursor: pointer;
+
   background-color: black;
   color: white;
 
@@ -117,8 +118,9 @@ input:focus {
   border-bottom: 1px solid #046dd5;
 }
 
-#register h1, #login h1 ,#change_pwd{
+#register h1, #login h1 ,#change_pwd h1,#editProfile h1{
   text-align: center;
+  padding-top: 1em;
 }
 
 /* Search */

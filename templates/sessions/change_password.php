@@ -4,6 +4,7 @@
     <label>Old Password<input type="password" name="oldpassword" required>
     </label>
     <label>New Password<input type="password" name="newpassword" required>
+      <span class="hint"></span>
     </label>
     <label>Repeat Password<input type="password" name="repeatpassword" required>
     </label>
