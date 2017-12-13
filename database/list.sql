@@ -209,3 +209,14 @@ BEGIN
   SET checked = 1
   WHERE (idList = new.idList);
 END;
+
+--Trigger to uncheck List if one item is unchecked
+CREATE TRIGGER IF NOT EXISTS LIST_UNCHECKED
+AFTER UPDATE ON Item
+FOR EACH ROW --Already default
+WHEN (new.checked = 0 AND old.checked = 1)
+BEGIN
+  UPDATE List
+  SET checked = 0
+  WHERE (idList = new.idList);
+END;
