@@ -1,5 +1,6 @@
 <section id="to-do-lists">
 <?php foreach( $lists as $todolist) {
+  $user = getUserofList($dbh,$todolist['idList']);
   $items = ItemsofList($dbh,$todolist['idList']);
   $tags = TagsofList($dbh,$todolist['idList']);
 
@@ -68,6 +69,7 @@
         <span class="tags" id="tag<?=$tag['idTag']?>"><a href="search.php?tag=<?=$tag['name']?>">#<?=$tag['name']?></a></span>
         <?php } ?>
         <span id="date<?=$todolist['idList']?>"class="date"><?php echo gmdate('d/m/Y',$todolist['editedDate'])?></span>
+        <span class="user" id="user<?=$todolist['idList']?>"><a href="search.php?user=<?=$user['username']?>">@<?=$user['username']?></a></td>
       </footer>
     </article>
   <?php } ?>

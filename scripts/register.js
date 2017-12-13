@@ -17,6 +17,8 @@ function validateUsername() {
     return;
   }
 
+  //detect space
+
   if (!/^\w{3,}$/.test(this.value)){
     hint[0].innerHTML = "Username must have at least 3 characters!"
     this.classList.remove('valid');

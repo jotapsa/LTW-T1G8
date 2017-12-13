@@ -1,4 +1,9 @@
 
+var search = document.getElementById("search");
+search.addEventListener("keyup",showHints);
+search.addEventListener("keypress",Search);
+
+
 function changeType(str){
   var inputSearch = document.getElementById('search');
   if(str == 'user'){
@@ -10,8 +15,8 @@ function changeType(str){
 }
 
 
-function Search(e) {
-    if (e.keyCode == 13) {
+function Search(event) {
+    if (event.keyCode == 13) {
         var input = document.getElementById("search").value;
         if(input == '')
           return false;
@@ -22,7 +27,8 @@ function Search(e) {
     }
 }
 
-function showHints(str) {
+function showHints(event) {
+    str = this.value;
     var dataList = document.getElementById('datalist');
     document.getElementById("datalist").innerHTML = "";
     var typeSearch = document.getElementById('searchType').value;

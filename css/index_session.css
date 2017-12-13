@@ -297,7 +297,7 @@
     float: right;
     text-align: right;
     color: white;
-    margin-left: 2em;
+    margin-left: 1em;
 }
 
 .date:before{
@@ -311,6 +311,15 @@
 
 .tags a{
     color: blue;
+    text-decoration-line: none;
+}
+
+.user{
+  padding: 1em;
+}
+
+.user a{
+    color: black;
     text-decoration-line: none;
 }
 

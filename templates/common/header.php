@@ -12,15 +12,15 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
     <?php
     $a = $_SERVER['PHP_SELF'];
     if(strpos($a, 'index') !== false)
-      $title = 'WIP';
+      $title = 'FeupTasks';
     else if(strpos($a, 'login') !== false)
-      $title = 'WIP - Login';
+      $title = 'FeupTasks - Login';
     else if(strpos($a, 'register') !== false)
-      $title = 'WIP - Register';
+      $title = 'FeupTasks - Register';
     else if(strpos($a, 'profile') !== false)
-      $title = 'WIP - Profile';
+      $title = 'FeupTasks - Profile';
     else {
-      $title = 'WIP';
+      $title = 'FeupTasks';
     }
      ?>
     <title><?php echo $title?></title>
@@ -37,13 +37,15 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
   </head>
   <body>
     <header>
-      <h1><a href="index.php">WIP</a></h1>
+      <img src="/images/logo_feup.png">
+      <h1><a href="index.php">FeupTasks</a></h1>
+      <h3><a href="index.php">"The only thing more important than your to-do list is your to-be list. The only thing more important than your to-be list is to be."</a></h3>
       <div id="signup">
         <select id="searchType" onchange="changeType(this.value)">
           <option value="user">User</option>
           <option value="tag">Tag</option>
         </select>
-        <input type="text" id="search" list="datalist" placeholder="search for user..." onkeypress="Search(event)" onkeyup="showHints(this.value)">
+        <input type="text" id="search" list="datalist" placeholder="search for user...">
         <datalist id="datalist"></datalist>
         <?php
           include_once('database/users.php');
