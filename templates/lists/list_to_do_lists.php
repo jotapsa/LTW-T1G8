@@ -49,7 +49,7 @@
             <?php }
             if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
               if(ListBelongsUser($dbh,$_SESSION['username'],$todolist['idList'])) {?>
-              <td class="deleteItem" id="delete<?=$item['idItem']?>">X</td>
+              <td class="deleteItem" id="deleteItem<?=$item['idItem']?>">X</td>
               <?}
             }?>
           </tr>

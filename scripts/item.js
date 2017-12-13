@@ -4,6 +4,12 @@ function addEventListenerList(list,method,eventType) {
       }
 }
 
+function removeEventListenerList(list,method,eventType) {
+      for (let i = 0;i < list.length; i++) {
+        list[i].removeEventListener(eventType, method);
+      }
+}
+
 function addEventListenerColor(list,method,eventType) {
       for (let i = 0;i < list.length; i++) {
         list[i].addEventListener(eventType, method,false);
@@ -22,7 +28,10 @@ privacy_buttons,
 color_buttons,
 tags_buttons,
 titles,
-colorPickers;
+colorPickers,
+close_tags,
+add_tags,
+delete_tags;
 
 function getListfromItem(item){
   for(let i=0;i<5;i++)
@@ -67,6 +76,28 @@ function Init(){
 
   colorPickers = document.getElementsByClassName("colorPick");
   addEventListenerColor(colorPickers,changeColor,"input");
+}
+
+function init_Tags(){
+  close_tags = document.getElementsByClassName("tagsClose");
+  addEventListenerList(close_tags,closeTags,"click");
+
+  add_tags = document.getElementsByClassName("addTag");
+  addEventListenerList(add_tags,addTag,"click");
+
+  delete_tags = document.getElementsByClassName("deleteTag");
+  addEventListenerList(delete_tags,deleteTag,"click");
+}
+
+function close_Tags(){
+  close_tags = document.getElementsByClassName("tagsClose");
+  removeEventListenerList(close_tags,closeTags,"click");
+
+  add_tags = document.getElementsByClassName("addTag");
+  removeEventListenerList(add_tags,addTag,"click");
+
+  delete_tags = document.getElementsByClassName("deleteTag");
+  removeEventListenerList(delete_tags,deleteTag,"click");
 }
 
 var n_lists=0;
@@ -200,7 +231,7 @@ function addItemInput(event){
 
 function deleteItem(event){
   var id = this.id;
-  id = id.substr(6);
+  id = id.substr(10);
 
   var idList = getListfromItem(this);
   var date = document.getElementById("date"+idList);
@@ -403,12 +434,13 @@ function manageTags(event){
   var idList = this.id;
   idList = idList.substr(8);
 
-  var table_items = document.getElementById("table-items"+idList).childNodes[1].childNodes;
-  var n_items = table_items.length;
+  var tags = document.querySelector("#list"+idList+" footer").childNodes;
+  var n_tags = tags.length;
 
   var modal = document.createElement("div");
   modal.setAttribute("id","tags"+idList);
-  modal.setAttribute("class","tagsPopup");
+  modal.setAttribute("class","tagsModal");
+  modal.setAttribute("style","display:block");
 
   var content = document.createElement("div");
   content.setAttribute("class","tagsContent");
@@ -433,30 +465,62 @@ function manageTags(event){
   body.setAttribute("class","tagsBody");
   content.appendChild(body);
 
-  var table
+  var table = document.createElement("table");
+  body.appendChild(table);
 
-  for(let i=0;i< n_tags-2;i+=2){
-    var
+  for(let i=1;i< n_tags-2;i+=2){
+    var tag = tags[i];
+    var tag_id = tag.id.substr(3);
+
+    var tags_table = document.createElement("tr");
+    table.appendChild(tags_table);
+
+    var tag_td = document.createElement("td");
+    tag_td.setAttribute("class","tagText");
+    tag_td.innerHTML = tag.childNodes[0].innerHTML.substr(1);
+    tags_table.appendChild(tag_td);
+
+    var tag_delete = document.createElement("td");
+    tag_delete.setAttribute("class","deleteTag");
+    tag_delete.setAttribute("id","deleteTag");
+    tag_delete.innerHTML = 'X';
+    tags_table.appendChild(tag_delete);
   }
+  var add_table = document.createElement("tr");
+  table.appendChild(add_table);
+
+  var tag_input = document.createElement("input");
+  tag_input.setAttribute("type","text");
+  tag_input.setAttribute("name","newTag");
+  tag_input.setAttribute("id","newTag"+idList);
+  add_table.appendChild(tag_input);
+
+  var tag_add = document.createElement("td");
+  tag_add.setAttribute("class","addTag");
+  // tag_add.setAttribute("colspan","2");
+  tag_add.innerHTML = '+';
+  add_table.appendChild(tag_add);
+
+  var section = document.getElementById("to-do-lists");
+  section.appendChild(modal);
+
+  init_Tags();
+  tag_input.focus();
+}
 
 
+function closeTags(event){
+  var tagModal = this.parentElement.parentElement.parentElement;
+  tagModal.setAttribute("style","display:none");
+  tagModal.remove();
 
-//
-//   <div id="tags" class="tagsPopup">
-//
-//   <!-- Modal content -->
-//   <div class="modal-content">
-//     <div class="modal-header">
-//       <span class="close"></span>
-//       <h2>Modal Header</h2>
-//     </div>
-//     <div class="modal-body">
-//       <p>Some text in the Modal Body</p>
-//       <p>Some other text...</p>
-//     </div>
-//   </div>
-//
-// </div>
+  close_Tags();
+}
 
+function addTag(event){
+
+}
+
+function deleteTag(event){
 
 }
