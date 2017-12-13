@@ -437,6 +437,23 @@ input[name=newItem]:focus{
   border:none;
 }
 
+.deleteTag{
+  background-color: red;
+  font-size: 15px;
+  cursor: pointer;
+
+  width: 10px;
+}
+
+.addTag{
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
 /* Media */
 @media all and (max-width: 750px) {

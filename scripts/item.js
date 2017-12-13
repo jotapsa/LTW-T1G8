@@ -502,6 +502,7 @@ function manageTags(event){
 
   var tag_add = document.createElement("td");
   tag_add.setAttribute("class","addTag");
+  tag_add.setAttribute("id","addTag"+idList);
   tag_add.innerHTML = '+';
   add_table.appendChild(tag_add);
 
@@ -521,11 +522,95 @@ function closeTags(event){
 }
 
 function addTag(event){
+  var idList = this.id;
+  idList = idList.substr(6);
 
+  var table = this.parentElement.parentElement;
+  var self = this;
+  var date = document.getElementById("date"+idList);
+  var str = document.getElementById("newTag"+idList).value;
+
+  if(str.length == 0){
+    return;
+  }
+  else{
+    str = str.replace(/\s+/g, '');
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          if(this.responseText != -1){
+            var idTag = this.responseText;
+            var tag_tr = document.createElement("tr");
+            table.appendChild(tag_tr);
+
+            var tag_td = document.createElement("td");
+            tag_td.setAttribute("class","tagText");
+            tag_td.innerHTML = str;
+            tag_tr.appendChild(tag_td);
+
+            var tag_delete = document.createElement("td");
+            tag_delete.setAttribute("class","deleteTag");
+            tag_delete.setAttribute("id","deleteTag"+idTag);
+            tag_delete.innerHTML = 'X';
+            tag_tr.appendChild(tag_delete);
+
+            table.insertBefore(tag_tr,table.childNodes[table.childNodes.length-2]);
+
+            var footer = document.querySelector("#list"+idList+" footer");
+
+            var tag_span = document.createElement("span");
+            tag_span.setAttribute("class","tags");
+            tag_span.setAttribute("id",'tag'+idTag);
+            footer.insertBefore(tag_span,footer.childNodes[footer.childNodes.length-2]);
+
+            var tag_a = document.createElement("a");
+            tag_a.setAttribute("href","search.php?tag="+str);
+            tag_a.innerHTML = '#'+str;
+            tag_span.appendChild(tag_a);
+
+            var input = document.getElementById("newTag"+idList);
+            input.value = '';
+
+            init_Tags();
+            input.focus();
+            updateDate(date);
+          }
+        }
+    };
+
+    xmlhttp.open("GET", "action_update_list.php?list=" + idList + '&newTag=' + str, true);
+    xmlhttp.send();
+  }
 }
 
 function deleteTag(event){
+  var idTag = this.id;
+  idTag = idTag.substr(9);
 
+  var tagModal = document.getElementsByClassName("tagsModal")[0];
+  var idList = tagModal.id.substr(4);
+
+  var date = document.getElementById("date"+idList);
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          var parent = document.getElementById('deleteTag' + idTag).parentElement;
+          parent.remove();
+          var tag = document.getElementById('tag' + idTag);
+          tag.remove();
+
+          var input = document.getElementById("newTag"+idList);
+          input.focus();
+          updateDate(date);
+        }
+      }
+  };
+
+  xmlhttp.open("GET", "action_update_list.php?list=" + idList + '&delTag=' + idTag, true);
+  xmlhttp.send();
 }
 
 window.onclick = function(event) {

@@ -90,10 +90,11 @@
     $stmt = $dbh->prepare('INSERT INTO Item VALUES(NULL,?,0,?)');
     $stmt->execute(array($info,$idList));
 
-    $stmt = $dbh->prepare('SELECT Item.idItem as id FROM Item ORDER BY Item.idItem DESC LIMIT 1');
+    $stmt = $dbh->prepare('SELECT Item.idItem FROM Item ORDER BY Item.idItem DESC LIMIT 1');
     $stmt->execute(array());
-    echo $stmt->fetch()['id'];
+    $idItem = $stmt->fetch()['idItem'];
 
+    echo $idItem;
     updateList($dbh,$idList);
   }
 
@@ -134,10 +135,10 @@
     $stmt = $dbh->prepare('INSERT INTO List VALUES(?,?,?,?,?,?)');
     $stmt->execute(array(NULL,0,'Title','#0000ff',0,time()));
 
-    //Get List.id
-    $stmt = $dbh->prepare('SELECT List.idList as id FROM List ORDER BY List.idList DESC LIMIT 1');
+    //Get List.id of new List
+    $stmt = $dbh->prepare('SELECT List.idList FROM List ORDER BY List.idList DESC LIMIT 1');
     $stmt->execute(array());
-    $idList = $stmt->fetch()['id'];
+    $idList = $stmt->fetch()['idList'];
 
     //Belongs
     $stmt = $dbh->prepare('INSERT INTO Belongs VALUES(?,?)');
@@ -158,7 +159,6 @@
     //Category
     $stmt = $dbh->prepare('DELETE FROM Category WHERE Category.idList = ?');
     $stmt->execute(array($idList));
-    //UPDATE All Tags
 
     //List
     $stmt = $dbh->prepare('DELETE FROM List WHERE List.idList = ?');
@@ -169,5 +169,50 @@
     $stmt = $dbh->prepare('SELECT Count(List.idList) as num FROM List');
     $stmt->execute(array());
     return $stmt->fetch()['num'];
+  }
+
+  function insertTagtoList($dbh,$idList,$tagName){
+    //Check if Tag already exists in SQLiteDatabase
+    $stmt = $dbh->prepare('SELECT Tag.idTag FROM Tag WHERE Tag.name = ?');
+    $stmt->execute(array($tagName));
+    $result = $stmt->fetch();
+    $exists = $result !== false ? 1 : 0;
+
+    if($exists){
+      $idTag = $result['idTag'];
+    }
+    else {
+      //Insert Tag
+      $stmt = $dbh->prepare('INSERT INTO Tag VALUES(?,?)');
+      $stmt->execute(array(NULL,$tagName));
+
+      //Get idTag of new Tag
+      $stmt = $dbh->prepare('SELECT Tag.idTag FROM Tag ORDER BY Tag.idTag DESC LIMIT 1');
+      $stmt->execute(array());
+      $idTag = $stmt->fetch()['idTag'];
+    }
+
+    //Insert Category
+    $stmt = $dbh->prepare('INSERT INTO Category VALUES(?,?)');
+    $stmt->execute(array($idList,$idTag));
+
+    echo $idTag;
+  }
+
+  function deleteTagfromList($dbh,$idList,$idTag){
+    //Category
+    $stmt = $dbh->prepare('DELETE FROM Category WHERE Category.idList = ? AND Category.idTag = ?');
+    $stmt->execute(array($idList,$idTag));
+
+    //If idTag not belongs to any List, delete Tag
+    $stmt = $dbh->prepare('SELECT count(List.idList) as num FROM List INNER JOIN Category ON (Category.idList = List.idList) INNER JOIN Tag ON (Category.idTag = Tag.idTag AND Tag.idTag = ?)');
+    $stmt->execute(array($idTag));
+    $num = $stmt->fetch()['num'];
+
+    //Delete Tag
+    if($num == 0){
+      $stmt = $dbh->prepare('DELETE FROM Tag WHERE Tag.idTag = ?');
+      $stmt->execute(array($idTag));
+    }
   }
  ?>
