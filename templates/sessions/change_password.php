@@ -9,5 +9,5 @@
     <label>Repeat Password<input type="password" name="repeatpassword" required>
     </label>
     <input type="submit" value="Submit" class="submit">
-  <script src="scripts/change_password.js"></script>
+  <script src="scripts/change_password.js" defer></script>
 </section>
