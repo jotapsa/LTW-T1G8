@@ -37,7 +37,7 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
   </head>
   <body>
     <header>
-      <img src="images/logo_feup.png">
+      <img src="images/logo_feup.png" alt="">
       <h1><a href="index.php">FeupTasks</a></h1>
       <h3><a href="index.php">"The only thing more important than your to-do list is your to-be list. The only thing more important than your to-be list is to be."</a></h3>
       <div id="signup">
@@ -68,4 +68,3 @@ if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
       <?php } ?>
       </div>
     </header>
-    </aside>

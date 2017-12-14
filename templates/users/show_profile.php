@@ -5,7 +5,7 @@
 			if(isset($user['image']))
 				echo $user['image'];
 			else
-				echo 'images/unknown.jpg';?>"/>
+				echo 'images/unknown.jpg';?>" alt = "">
 		</div>
 
 		<div id="name">
@@ -16,7 +16,7 @@
 		<div id="contactDetails">
 			<ul>
 				<li>e-mail: <a href="mailto:<?=$user['email']?>" target="_blank"><?=$user['email']?></a></li>
-				<li>Member Since: <a><?php echo gmdate('d/m/y',$user['registerDate'])?></a></li>
+				<li>Member Since: <a><?php echo gmdate('d/m/Y',$user['registerDate'])?></a></li>
 			</ul>
 		</div>
     <div class="clear"></div>

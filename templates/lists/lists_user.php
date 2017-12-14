@@ -5,7 +5,7 @@
       if(isset($user['image']))
         echo $user['image'];
       else
-        echo 'images/unknown.jpg';?>"/>
+        echo 'images/unknown.jpg';?>" alt="">
     </div>
 
     <div id="name_user">
@@ -15,7 +15,7 @@
       echo $years;
       ?> years old</a></h3>
       <h3>e-mail: <a href="mailto:<?php echo $user['email']?>" target="_blank"><?php echo $user['email']?></a></h3>
-      <h3>Member Since: <a><?php echo gmdate('d/m/y',$user['registerDate'])?></a></h3>
+      <h3>Member Since: <a><?php echo gmdate('d/m/Y',$user['registerDate'])?></a></h3>
 		</div>
 
   </div>

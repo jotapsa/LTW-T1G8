@@ -206,7 +206,7 @@ function updateDate(date){
   let d = new Date();
   let day = d.getDate();
   let month = d.getMonth()+1;
-  let year = d.getYear() % 100;
+  let year = d.getFullYear();
   date.innerHTML = day +'/'+ month +'/'+ year;
 }
 
@@ -473,11 +473,19 @@ function changeColor(event){
   id = id.substr(9);
 
   var color = event.target.value;
-  color = color.substr(1);
+  colorList = color.substr(1);
   this.parentElement.setAttribute("style","background-color: " + color);
 
   var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", "action_update_list.php?list=" + id + '&color=' + color, true);
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          var date = document.getElementById("date"+id);
+          updateDate(date);
+        }
+      }
+  };
+  xmlhttp.open("GET", "action_update_list.php?list=" + id + '&color=' + colorList, true);
   xmlhttp.send();
 }
 
@@ -487,6 +495,15 @@ function editTitle(event){
   str = this.value;
 
   var xmlhttp = new XMLHttpRequest();
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          var date = document.getElementById("date"+id);
+          updateDate(date);
+        }
+      }
+  };
   xmlhttp.open("GET", "action_update_list.php?list=" + id + '&title=' + str, true);
   xmlhttp.send();
 }
