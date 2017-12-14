@@ -35,6 +35,12 @@
     return $stmt->fetchAll();
   }
 
+  function tagExists($dbh,$tag){
+    $stmt = $dbh->prepare('SELECT DISTINCT Tag.* FROM List INNER JOIN Category ON ((List.privacy = 0) AND (List.idList = Category.idList)) INNER JOIN Tag ON ((Tag.idTag = Category.idTag) AND Tag.name = ?)');
+    $stmt->execute(array($tag));
+    return $stmt->fetch() !== false;
+  }
+
   function SearchbyTagSession($dbh,$username,$tag){
       $stmt = $dbh->prepare('SELECT List.*
                                 FROM List INNER JOIN Category

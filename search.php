@@ -9,7 +9,7 @@
   include('templates/common/header.php');  // prints the initial part of the HTML document
 
   //user
-  if(isset($_GET['user']) && $_GET['user'] != ''){
+  if(isset($_GET['user']) && $_GET['user'] != '' && usernameExists($dbh,$_GET['user'])){
     $username = $_GET['user'];
 
     if(isset($_SESSION['username']) && $_SESSION['username'] != '' && $username == $_SESSION['username']){
@@ -23,7 +23,7 @@
     include('templates/lists/lists_user.php');
   }
   //tags
-  else if(isset($_GET['tag']) && $_GET['tag'] != ''){
+  else if(isset($_GET['tag']) && $_GET['tag'] != '' && tagExists($dbh,$_GET['tag'])){
     $tag = $_GET['tag'];
 
     if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
