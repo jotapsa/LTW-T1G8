@@ -43,12 +43,29 @@ function getColorofList(header,idList){
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        var color = this.responseText;
-        header.setAttribute("style","background-color: "+color+";");
+        if(this.responseText != -1){
+          var color = this.responseText;
+          header.setAttribute("style","background-color: "+color+";");
+        }
       }
   };
 
   xmlhttp.open("GET", "action_update_list.php?list=" + idList + '&getColor=' + idList, true);
+  xmlhttp.send();
+}
+
+function getUsernameofList(user,idList){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText != -1){
+          user.setAttribute("href","search.php?user="+this.responseText);
+          user.innerHTML = '@'+this.responseText;
+        }
+      }
+  };
+
+  xmlhttp.open("GET", "action_update_list.php?list=" + idList + '&getUsername=' + idList, true);
   xmlhttp.send();
 }
 
@@ -135,6 +152,7 @@ function addItem(event){
   str = input.value;
 
   if(str.length == 0){
+    input.focus();
     return;
   }
   else {
@@ -244,7 +262,7 @@ function addItemInput(event){
   var add_confirm = document.createElement("td");
   add_confirm.setAttribute("id","add"+id);
   add_confirm.setAttribute("class","addItemConfirm");
-  add_confirm.innerHTML = '✓';
+  add_confirm.innerHTML = '+';
   add.appendChild(add_confirm);
 
 
@@ -373,6 +391,14 @@ function addList(event){
           date.setAttribute("id",'date'+id);
           updateDate(date);
           footer.appendChild(date);
+
+          var user = document.createElement("span");
+          user.setAttribute("class","user");
+          user.setAttribute("id",'user'+id);
+          var user_a = document.createElement("a");
+          getUsernameofList(user_a,id);
+          user.appendChild(user_a);
+          footer.appendChild(user);
 
           section.insertBefore(newList, section.childNodes[0]);
           edit.focus();
@@ -561,9 +587,11 @@ function addTag(event){
   var add_button = this.parentElement;
   var self = this;
   var date = document.getElementById("date"+idList);
-  var str = document.getElementById("newTag"+idList).value;
+  var input = document.getElementById("newTag"+idList);
+  var str = input.value;
 
   if(str.length == 0){
+    input.focus();
     return;
   }
   else{

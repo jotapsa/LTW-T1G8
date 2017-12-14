@@ -36,6 +36,10 @@
     elseif (isset($_GET["getColor"]) && $_GET["getColor"] != '' && isset($_GET["list"]) && $_GET["list"] != '') {
       getColorofList($dbh,$_GET["getColor"]);
     }
+    //Get Username of List
+    elseif (isset($_GET["getUsername"]) && $_GET["getUsername"] != '' && isset($_GET["list"]) && $_GET["list"] != '') {
+      echo $_SESSION['username'];
+    }
     else {
       echo -1;
       return;
