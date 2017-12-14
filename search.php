@@ -20,6 +20,7 @@
     }
 
     $user = getUserbySession($dbh,$username);
+    $mode = 'search';
     include('templates/lists/lists_user.php');
   }
   //tags
