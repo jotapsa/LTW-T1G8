@@ -27,6 +27,13 @@ function validateUsername() {
     return;
   }
 
+  if(str.indexOf(' ') >= 0){
+    hint[0].innerHTML = "Username must not have spaces!"
+    this.classList.remove('valid');
+    this.classList.add('invalid');
+    return;
+  }
+
   listClass = this.classList;
 
   var xmlhttp = new XMLHttpRequest();

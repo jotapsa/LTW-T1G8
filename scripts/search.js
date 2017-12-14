@@ -17,13 +17,43 @@ function changeType(str){
 
 function Search(event) {
     if (event.keyCode == 13) {
-        var input = document.getElementById("search").value;
-        if(input == '')
+        var input = document.getElementById("search");
+        var inputSearch = document.getElementById('searchType').value;
+        str = input.value;
+
+        if(str == ''){
+          input.focus();
           return false;
-        var type = document.getElementById('searchType').value;
-        var page = 'search.php?' + type + '=' + input;
-        window.location = page;
-        return false;
+        }
+        else if(str.indexOf(' ') >= 0){
+          input.value = '';
+          input.focus();
+          return false;
+        }
+        else {
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                if(this.responseText != 0){
+                  var page = 'search.php?' + inputSearch + '=' + str;
+                  window.location = page;
+                  return false;
+                }
+                else {
+                  input.value = '';
+                  input.focus();
+                  return false;
+                }
+              }
+          };
+          if(inputSearch == 'user'){
+            xmlhttp.open("GET", "check_username.php?username=" + str, true);
+          }
+          else {
+            xmlhttp.open("GET", "check_tag.php?tag=" + str, true);
+          }
+          xmlhttp.send();
+        }
     }
 }
 
