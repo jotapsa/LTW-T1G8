@@ -105,7 +105,7 @@
     $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idItem=?');
     $stmt->execute(array($idItem));
 
-    $stmt = $dbh->prepare('SELECT List.checked FROM List INNER JOIN Item ON (List.idList = Item.idList AND Item.idItem=?)');
+    $stmt = $dbh->prepare('SELECT List.checked FROM List WHERE List.idList = ?');
     $stmt->execute(array($idList));
     echo $stmt->fetch()['checked'];
   }

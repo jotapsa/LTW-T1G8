@@ -274,7 +274,6 @@ function deleteItem(event){
       if (this.readyState == 4 && this.status == 200) {
         if(this.responseText != -1){
           checkedList = this.responseText;
-          console.log(checkedList);
 
           if(checkedList == 1){
             header.className = 'list-checked';
