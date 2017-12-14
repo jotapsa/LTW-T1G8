@@ -125,19 +125,20 @@ NodeList.prototype.css = function(property, value) {
 }
 
 function addItem(event){
-  var id = this.id;
-  id = id.substr(3);
+  var idList = this.id;
+  idList = idList.substr(3);
 
-  var input = document.getElementById('input'+id);
-  var add_item = document.getElementById('addItem'+id);
-  var table = document.getElementById('addItem'+id).parentElement;
+  var input = document.getElementById('input'+idList);
+  var add_item = document.getElementById('addItem'+idList);
+  var table = document.getElementById('addItem'+idList).parentElement;
+  var header = document.getElementById("list"+idList).querySelector("header");
   str = input.value;
 
   if(str.length == 0){
     return;
   }
   else {
-    var date = document.getElementById("date"+id);
+    var date = document.getElementById("date"+idList);
 
     input.parentElement.remove();
     input.remove();
@@ -148,6 +149,7 @@ function addItem(event){
         if (this.readyState == 4 && this.status == 200) {
           if(this.responseText != -1){
             var newID = this.responseText;
+
             var item = document.createElement("tr");
 
             var item_info = document.createElement("td");
@@ -164,8 +166,12 @@ function addItem(event){
 
             table.insertBefore(item, add_item);
 
+            //uncheck List
+            header.className = 'list-unchecked';
+            getColorofList(header,idList);
+
             updateDate(date);
-            $('#addItem'+id+ ' .addItem').css('display', 'table-cell');
+            $('#addItem'+idList+ ' .addItem').css('display', 'table-cell');
             Init();
           }
         }
@@ -173,7 +179,7 @@ function addItem(event){
 
     xmlhttp.open("POST", "action_add_item.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send('info='+str+'&list='+id);
+    xmlhttp.send('info='+str+'&list='+idList);
   }
 }
 
@@ -260,12 +266,25 @@ function deleteItem(event){
   id = id.substr(10);
 
   var idList = getListfromItem(this);
+  var header = document.getElementById("list"+idList).querySelector("header");
   var date = document.getElementById("date"+idList);
 
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         if(this.responseText != -1){
+          checkedList = this.responseText;
+          console.log(checkedList);
+
+          if(checkedList == 1){
+            header.className = 'list-checked';
+            header.setAttribute("style","background-color: green;")
+          }
+          else{
+            header.className = 'list-unchecked';
+            getColorofList(header,idList);
+          }
+
           var parent = document.getElementById('item' + id).parentElement;
           parent.remove();
           updateDate(date);

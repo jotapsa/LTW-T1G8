@@ -1,12 +1,10 @@
 <?php
-  session_start();
-
-  if(!isset($_GET['user']) && !isset($_GET['tag']))
-    die('Search Invalid!');
-
   include_once('database/connection.php');
   include_once('database/users.php');
   include_once('database/lists.php');
+
+  if(!isset($_GET['user']) && !isset($_GET['tag']))
+    die('Search Invalid!');
 
   if(isset($_GET['user']) && $_GET['user'] != ''){
     $username = $_GET['user'];

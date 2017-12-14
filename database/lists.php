@@ -94,19 +94,20 @@
     $stmt->execute(array());
     $idItem = $stmt->fetch()['idItem'];
 
+    //uncheck List
+    $stmt = $dbh->prepare('UPDATE List SET checked = ? WHERE List.idList = ?');
+    $stmt->execute(array(0,$idList));
+
     echo $idItem;
-    updateList($dbh,$idList);
   }
 
-  function deleteItem($dbh,$idItem){
+  function deleteItem($dbh,$idItem,$idList){
     $stmt = $dbh->prepare('DELETE FROM Item WHERE Item.idItem=?');
     $stmt->execute(array($idItem));
 
-    updateList($dbh,$idList);
-  }
-
-  function updateList($dbh,$idList){
-
+    $stmt = $dbh->prepare('SELECT List.checked FROM List INNER JOIN Item ON (List.idList = Item.idList AND Item.idItem=?)');
+    $stmt->execute(array($idList));
+    echo $stmt->fetch()['checked'];
   }
 
   function ListBelongsUser($dbh,$username,$idList){

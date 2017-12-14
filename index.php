@@ -1,5 +1,4 @@
 <?php
-  session_start();
   include_once('database/connection.php');
   include_once('database/users.php');
   include_once('database/lists.php');
@@ -15,5 +14,5 @@
     include('templates/lists/lists_guest.php');
   }
   //include('templates/news/list_news.php'); // prints the list of news in HTML
-  include('templates/common/footer.php'); 
+  include('templates/common/footer.php');
 ?>

@@ -1,5 +1,4 @@
 <?php
-  session_start();
   include_once('database/connection.php');
   include_once('database/lists.php');
 
@@ -12,9 +11,8 @@
   }
 
   if(isset($_SESSION['username']) && $_SESSION['username'] != '' && ListBelongsUser($dbh,$_SESSION['username'],$item['idList'])){
-      deleteItem($dbh,$_GET["item"]);
+      deleteItem($dbh,$_GET["item"],$item['idList']);
       updateModified($dbh,$item['idList']);
-      echo 0;
   }
   else {
     echo -1;
