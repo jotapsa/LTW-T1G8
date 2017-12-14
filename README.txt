@@ -18,3 +18,4 @@ username : arthur
 password : 1234
 
 -------------------------------------------------
+In the main folder you will find a script called "restart_database.sh" that can be used to restart the database.
