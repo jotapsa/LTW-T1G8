@@ -6,6 +6,9 @@
   if(!isset($_GET['user']) && !isset($_GET['tag']))
     die('Search Invalid!');
 
+  include('templates/common/header.php');  // prints the initial part of the HTML document
+
+  //user
   if(isset($_GET['user']) && $_GET['user'] != ''){
     $username = $_GET['user'];
 
@@ -15,6 +18,9 @@
     else {
       $lists = SearchByUser($dbh,$username);
     }
+
+    $user = getUserbySession($dbh,$username);
+    include('templates/lists/lists_user.php');
   }
   //tags
   else if(isset($_GET['tag']) && $_GET['tag'] != ''){
@@ -26,9 +32,8 @@
     else{
       $lists = SearchByTag($dbh,$tag);
     }
+    include('templates/lists/list_to_do_lists.php');
   }
 
-  include('templates/common/header.php');  // prints the initial part of the HTML document
-  include('templates/lists/list_to_do_lists.php');
   include('templates/common/footer.php');  // prints the initial part of the HTML document
 ?>

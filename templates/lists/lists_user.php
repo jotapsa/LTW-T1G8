@@ -21,15 +21,12 @@
   </div>
 
   <div id="user_lists">
-    <i class="addList">add</i>
     <?php
-      $lists = userTDLists($dbh,$user['username']);
+      if($mode == 'index'){?>
+        <i class="addList">add</i>
+        <? $lists = userTDLists($dbh,$user['username']);
+      }
       include('templates/lists/list_to_do_lists.php');
      ?>
   </div>
-
-  <div id="nav">
-
-  </div>
-
 </section>

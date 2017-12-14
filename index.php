@@ -7,6 +7,7 @@
   if(isset($_SESSION['username']) && $_SESSION['username'] != ''){
     //user layout
     $user = getUserbySession($dbh,$_SESSION['username']);
+    $mode = 'index';
     include('templates/lists/lists_user.php');
   }
   else{
